@@ -1,0 +1,1 @@
+web: gunicorn "url-shortener:create_app()"
