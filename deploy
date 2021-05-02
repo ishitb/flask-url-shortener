@@ -1,0 +1,11 @@
+#!/bin/bash
+
+commit_message=$1
+
+cd client
+npm run build
+cd ..
+
+git add .
+git commit -m "$1"
+git push

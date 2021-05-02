@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request
+from flask import Blueprint, redirect, request, render_template
 import main.controllers as controllers
 import json
 
@@ -6,13 +6,16 @@ main = Blueprint('main', __name__)
 
 URLController = controllers.URL()
 
-# @main.route('/')
-# def index() :
-#     return {'message': 'Hello World'}
+@main.route('/')
+def index() :
+    return render_template('index.html')
+
+# Auth Routes
+@main.route('/auth/register', methods = ['POST'])
+def register() :
+    return "Hello World"
 
 # URL Routes
-
-# For debugging making this the / route 
 @main.route('/api/urls')
 def url_get_all() :
     urls = URLController.get()
