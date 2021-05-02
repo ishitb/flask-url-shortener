@@ -5,6 +5,7 @@ import json
 main = Blueprint('main', __name__)
 
 URLController = controllers.URL()
+UserController = controllers.User()
 
 @main.route('/')
 def index() :
@@ -13,7 +14,24 @@ def index() :
 # Auth Routes
 @main.route('/auth/register', methods = ['POST'])
 def register() :
-    return "Hello World"
+    body = request.get_json()
+    
+    if not body or "email" not in body.keys() or "password" not in body.keys() or "name" not in body.keys() :
+        return {'message': 'Please provide all the required details'}
+
+    return UserController.register(body['email'], body['password'], body['name'])
+
+@main.route('/auth/login', methods = ['POST'])
+def login() :
+    body = request.get_json()
+    
+    if not body or "email" not in body.keys() or "password" not in body.keys() :
+        return {'message': 'Please provide all the required details'}
+
+    return UserController.login(body['email'], body['password'])
+
+
+
 
 # URL Routes
 @main.route('/api/urls')
