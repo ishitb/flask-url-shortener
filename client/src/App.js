@@ -4,7 +4,12 @@ import './App.css';
 
 function App() {
     useEffect(() => {
-        fetch('/api/urls')
+        fetch('/auth/verify', {
+            headers: {
+                Authorization:
+                    'Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NTAzMjQyZmQzOTQ0ZTllYjNhYWRkZTJkNmJlMjk5MyIsImVtYWlsIjoiaXNoYmVzd2FsQGdtYWlsLmNvbSIsIm5hbWUiOiJJc2hpdCBCZXN3YWwifQ.FFF0VU3a87ezZfpbsy2rVnwfzERpaGp8dgehHvtEg7Q',
+            },
+        })
             .then((res) => res.json())
             .then((data) => console.log(data));
         // eslint-disable-next-line

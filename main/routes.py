@@ -30,6 +30,23 @@ def login() :
 
     return UserController.login(body['email'], body['password'])
 
+@main.route('/auth/verify', methods = ['GET'])
+def verifyUser() :
+    print(request.headers)
+    if 'Authorization' not in request.headers.keys() :
+        return {'message': 'User not Authenticated'}
+
+    token = request.headers['Authorization']
+    if not token.startswith("Token") :
+        return {'message': 'User not Authenticated'}
+    
+    token = token[6:]
+    user = UserController.verifyUser(token)
+    userID = user['_id']
+
+
+
+    return user
 
 
 

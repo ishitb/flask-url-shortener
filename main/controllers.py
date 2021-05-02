@@ -86,17 +86,6 @@ class User:
             print(e)
             return False, {}
 
-    def verifyUser(self, token) :
-        check, decoded = self.decodeToken(token)
-
-        if not check :
-            return to_json({'message': 'Invalid Authentication'})
-        
-        if len(decoded.keys()) < 4 :
-            return to_json({'message': 'Invalid Authentication'})
-        
-        return to_json(decoded)
-
     def hashPassword(self, password) :
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
@@ -165,3 +154,23 @@ class User:
         user.pop('password')
         token = self.createToken(user)
         return to_json({"user": user, "token": token})
+
+    def verifyUser(self, token) :
+        check, decoded = self.decodeToken(token)
+
+        if not check :
+            return to_json({'message': 'Invalid Authentication'})
+        
+        
+        try :
+            uid = decoded['_id']
+            user = self.collection.find_one({'_id': uid})
+            if not user :
+                print(decoded)
+                raise Exception("Invalid Authentication")
+        except Exception as e :
+            print(e)
+            return to_json({'message': 'Invalid Authentication'})
+
+        return decoded
+
