@@ -13,7 +13,7 @@ URLController = controllers.URL()
 # URL Routes
 
 # For debugging making this the / route 
-@main.route('/')
+@main.route('/api/urls')
 def url_get_all() :
     urls = URLController.get()
     return urls
