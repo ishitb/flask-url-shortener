@@ -12,12 +12,12 @@ class URL :
     def __init__(self):
         self.collection = mongoDB.getCollection('url')
 
-    def get(self) :
-        urls = self.collection.find()
+    def get(self, user) :
+        urls = self.collection.find({'user': user})
         return json.dumps([url for url in urls], default=json_util.default)
 
-    def retrieve(self, short) :
-        url = self.collection.find_one({"short": short})
+    def retrieve(self, id, user) :
+        url = self.collection.find_one({"_id": objectid.ObjectId(id), "user": user})
         
         found = url is not None
 
@@ -25,19 +25,29 @@ class URL :
 
         return json.dumps(url if found else err_msg, default=json_util.default)
 
-    def post(self, url) :
+    def post(self, url, user, userType) :
         uid = uuid.uuid4().hex[0:5]
         
+        newURL = {
+            'original': url,
+            'short': uid,
+            'clicks': 0,
+            'userType': userType,
+            'user': user
+        }
+
         try :
-            new_short = self.collection.insert_one({"original": url, "short": uid})
-            return to_json({"_id": new_short.inserted_id, "original": url, "short": uid})
+            new_short = self.collection.insert_one(newURL)
+            newURL['_id'] = new_short.inserted_id
+
+            return to_json(newURL)
 
         except Exception as e :
             print(e)
             return to_json({'message': 'Internal Server Error'})
 
-    def delete(self, id) :
-        url = self.collection.find_one({"_id": objectid.ObjectId(id)})
+    def delete(self, id, user) :
+        url = self.collection.find_one({"_id": objectid.ObjectId(id), 'user': user})
 
         if not url :  
             err_msg = {'message': 'This URL id does not exist in our database. Please check the spelling or contact us.'}
@@ -45,6 +55,16 @@ class URL :
 
         deleted = self.collection.delete_one({"_id": objectid.ObjectId(id)})
         return json.dumps({'message': 'Deleted'} if deleted.acknowledged else {'message': 'Internal Server Error'}, default=json_util.default)
+
+    def link(self, short) :
+        url = self.collection.find_one({'short': short})
+
+        found = url is not None
+
+        err_msg = {'message': 'This URL does not exist in our database. Please check the spelling or contact us.'}
+
+        return json.dumps(url if found else err_msg, default=json_util.default)
+
 
 class User: 
     def __init__(self):

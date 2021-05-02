@@ -1,11 +1,27 @@
 from flask import Blueprint, redirect, request, render_template
 import main.controllers as controllers
-import json
+import json, uuid
 
 main = Blueprint('main', __name__)
 
 URLController = controllers.URL()
 UserController = controllers.User()
+
+
+# Common Methods
+def verifyUser(request) :
+    if 'Authorization' not in request.headers.keys() :
+        return False, {'message': 'User not Authenticated'}
+
+    token = request.headers['Authorization']
+    if not token.startswith("Token") :
+        return False, {'message': 'User not Authenticated'}
+    
+    token = token[6:]
+    user = UserController.verifyUser(token)
+
+    return user
+
 
 @main.route('/')
 def index() :
@@ -32,28 +48,33 @@ def login() :
 
 @main.route('/auth/verify', methods = ['GET'])
 def verifyUser() :
-    print(request.headers)
-    if 'Authorization' not in request.headers.keys() :
-        return {'message': 'User not Authenticated'}
-
-    token = request.headers['Authorization']
-    if not token.startswith("Token") :
-        return {'message': 'User not Authenticated'}
     
-    token = token[6:]
-    user = UserController.verifyUser(token)
+    authenticated, user = verifyUser(request)
+
+    if not authenticated :
+        return user
+
     userID = user['_id']
 
+    userLinks = URLController.get(userID)
 
-
-    return user
-
+    return {
+        'user': user,
+        'urls': userLinks
+    }
 
 
 # URL Routes
 @main.route('/api/urls')
 def url_get_all() :
-    urls = URLController.get()
+    authenticated, user = verifyUser(request)
+
+    if not authenticated :
+        return user
+
+    userID = user['id']
+
+    urls = URLController.get(userID)
     return urls
 
 @main.route('/api/urls', methods = ['POST'])
@@ -64,25 +85,38 @@ def url_post() :
         print(e)
         return {'message': 'Please make sure to include the url value in the request body'}
 
-    return URLController.post(url)
+    authenticated, user = verifyUser(request)
+    
+    userType = 'Anonymous'
+    userID = uuid.uuid4().hex
 
-@main.route('/api/urls/<short>')
-def url_retrieve(short) :
-    url = URLController.retrieve(short)
+    if authenticated :
+        userType = 'Registered'
+        userID = user['id']
+
+
+    return URLController.post(url, userID, userType)
+
+@main.route('/api/urls/<urlID>')
+def url_retrieve(urlID) :
+    authenticated, user = verifyUser(request)
+
+    if not authenticated :
+        return user
+
+    userID = user['id']
+    
+    url = URLController.retrieve(urlID, userID)
     return url
 
 @main.route('/api/urls/<urlID>', methods=['DELETE'])
 def url_delete(urlID) :
-    url = URLController.delete(urlID)
-    return url
+    authenticated, user = verifyUser(request)
 
-# Redirection url. To be kept in the end
-@main.route('/<short>')
-def url_redirect(short) :
-    url = URLController.retrieve(short)
-    url = json.loads(url)
-    
-    if len(url.keys()) > 1 :
-        return redirect(url['original'])
-    
+    if not authenticated :
+        return user
+
+    userID = user['id']
+
+    url = URLController.delete(urlID, userID)
     return url
