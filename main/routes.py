@@ -20,7 +20,7 @@ def verifyUser(request) :
     token = token[6:]
     user = UserController.verifyUser(token)
 
-    return user
+    return True, user
 
 
 @main.route('/')
@@ -47,7 +47,7 @@ def login() :
     return UserController.login(body['email'], body['password'])
 
 @main.route('/auth/verify', methods = ['GET'])
-def verifyUser() :
+def verify() :
     
     authenticated, user = verifyUser(request)
 
@@ -72,7 +72,7 @@ def url_get_all() :
     if not authenticated :
         return user
 
-    userID = user['id']
+    userID = user['_id']
 
     urls = URLController.get(userID)
     return urls
@@ -92,7 +92,7 @@ def url_post() :
 
     if authenticated :
         userType = 'Registered'
-        userID = user['id']
+        userID = user['_id']
 
 
     return URLController.post(url, userID, userType)
@@ -104,7 +104,7 @@ def url_retrieve(urlID) :
     if not authenticated :
         return user
 
-    userID = user['id']
+    userID = user['_id']
     
     url = URLController.retrieve(urlID, userID)
     return url
@@ -116,7 +116,23 @@ def url_delete(urlID) :
     if not authenticated :
         return user
 
-    userID = user['id']
+    userID = user['_id']
 
     url = URLController.delete(urlID, userID)
+    return url
+
+@main.route('/api/urls/<urlID>', methods=['PATCH'])
+def url_update(urlID) :
+    updates = request.get_json()
+    if not updates :
+        return {'message': 'No update details provided'}
+
+    authenticated, user = verifyUser(request)
+
+    if not authenticated :
+        return user
+
+    userID = user['_id']
+
+    url = URLController.update(urlID, updates, userID)
     return url

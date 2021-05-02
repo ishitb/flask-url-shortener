@@ -50,7 +50,7 @@ class URL :
         url = self.collection.find_one({"_id": objectid.ObjectId(id), 'user': user})
 
         if not url :  
-            err_msg = {'message': 'This URL id does not exist in our database. Please check the spelling or contact us.'}
+            err_msg = {'message': 'This URL id does not exist in our database.'}
             return json.dumps(err_msg, default=json_util.default)
 
         deleted = self.collection.delete_one({"_id": objectid.ObjectId(id)})
@@ -65,6 +65,29 @@ class URL :
 
         return json.dumps(url if found else err_msg, default=json_util.default)
 
+    def update(self, id, updates, user) :
+        if len(updates.keys()) > 2 :
+            return {'message': 'Unverified information provided'}
+        
+        try :
+            short = updates['short']
+            if len(short) < 4 :
+                return {'message': 'Length of the Short URL must be 4 or more'}
+
+            existing = self.collection.find_one({'short': short})
+            if existing :
+                return {'message': 'This route already exists. Please try another'}
+
+        except Exception as e :
+            print(e)
+
+        found = self.collection.find_one({'_id': objectid.ObjectId(id), 'user': user})
+        if not found :
+            return {'message': 'Not Found!'}
+
+        update_info = self.collection.update_one({'_id': objectid.ObjectId(id)}, {"$set": updates})
+
+        return {'message': 'UPDATED'}
 
 class User: 
     def __init__(self):
