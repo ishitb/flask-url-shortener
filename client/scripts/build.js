@@ -29,20 +29,19 @@ const printBuildError = require('react-dev-utils/printBuildError');
 
 // CUSTOM
 const custom = async () => {
-
     let customPackageFile = {};
-await    fs.readJSON('package.json', (err, f) => {
+    await fs.readJSON('package.json', (err, f) => {
         customPackageFile = f;
         customPackageFile['homepage'] = '/static/react';
         fs.writeJSON(
-        'package.json',
-        customPackageFile,
-        (err, w) => {
-            console.log(err);
-        }
+            'package.json',
+            customPackageFile,
+            (err, w) => {
+                console.log(err);
+            }
         );
     });
-}
+};
 
 const measureFileSizesBeforeBuild =
     FileSizeReporter.measureFileSizesBeforeBuild;
@@ -80,7 +79,7 @@ checkBrowsers(paths.appPath, isInteractive)
         // This lets us display how much they changed later.
         return measureFileSizesBeforeBuild(paths.appBuild);
     })
-    .then(async(previousFileSizes) => {
+    .then(async (previousFileSizes) => {
         // Remove all content but keep the directory so that
         // if you're in it, you don't end up in Trash
         fs.emptyDirSync(paths.appBuild);
@@ -88,7 +87,7 @@ checkBrowsers(paths.appPath, isInteractive)
         copyPublicFolder();
         // Start the webpack build
 
-        await custom()
+        await custom();
 
         return build(previousFileSizes);
     })
@@ -263,6 +262,19 @@ function build(previousFileSizes) {
                     );
             }
 
+            let customPackageFile = {};
+            fs.readJSON('package.json', (err, f) => {
+                customPackageFile = f;
+                delete customPackageFile.homepage;
+                fs.writeJSON(
+                    'package.json',
+                    customPackageFile,
+                    (err, w) => {
+                        console.log(err);
+                    }
+                );
+            });
+
             return resolve(resolveArgs);
         });
     });
@@ -274,16 +286,3 @@ function copyPublicFolder() {
         filter: (file) => file !== paths.appHtml,
     });
 }
-
-customPackageFile = {};
-fs.readJSON('package.json', (err, f) => {
-    customPackageFile = f;
-    delete customPackageFile.homepage;
-    fs.writeJSON(
-        'package.json',
-        customPackageFile,
-        (err, w) => {
-            console.log(err);
-        }
-    );
-});
