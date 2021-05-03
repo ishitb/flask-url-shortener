@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, render_template
+from flask import Blueprint, redirect, request, render_template, Response
 import main.controllers as controllers
 import json, uuid
 
@@ -33,18 +33,21 @@ def register() :
     body = request.get_json()
     
     if not body or "email" not in body.keys() or "password" not in body.keys() or "name" not in body.keys() :
-        return {'message': 'Please provide all the required details'}
+        return Response(response = json.dumps({'message': 'Please provide all the required details'}), status = 406)
 
-    return UserController.register(body['email'], body['password'], body['name'])
+    response, status = UserController.register(body['email'], body['password'], body['name'])
+    return Response(response = response, status = status)
 
 @main.route('/auth/login', methods = ['POST'])
 def login() :
     body = request.get_json()
     
     if not body or "email" not in body.keys() or "password" not in body.keys() :
-        return {'message': 'Please provide all the required details'}
+        return Response(response = json.dumps({'message': 'Please provide all the required details'}), status = 406)
 
-    return UserController.login(body['email'], body['password'])
+    response, status = UserController.login(body['email'], body['password'])
+    
+    return Response(response = response, status = status)
 
 @main.route('/auth/verify', methods = ['GET'])
 def verify() :
@@ -52,16 +55,16 @@ def verify() :
     authenticated, user = verifyUser(request)
 
     if not authenticated :
-        return user
+        return json.dumps(user), 401
 
     userID = user['_id']
 
     userLinks = URLController.get(userID)
 
-    return {
+    return Response(response = json.dumps({
         'user': user,
         'urls': userLinks
-    }
+    }), status = 200)
 
 
 # URL Routes
@@ -70,12 +73,12 @@ def url_get_all() :
     authenticated, user = verifyUser(request)
 
     if not authenticated :
-        return user
+        return Response(response = json.dumps(user), status = 401)
 
     userID = user['_id']
 
-    urls = URLController.get(userID)
-    return urls
+    urls, status = URLController.get(userID)
+    return Response(response = urls, status = status)
 
 @main.route('/api/urls', methods = ['POST'])
 def url_post() :
@@ -83,7 +86,7 @@ def url_post() :
         url = request.get_json()['url']
     except Exception as e :
         print(e)
-        return {'message': 'Please make sure to include the url value in the request body'}
+        return Response(response = json.dumps({'message': 'Please make sure to include the url value in the request body'}), status = 406)
 
     authenticated, user = verifyUser(request)
     
@@ -95,44 +98,45 @@ def url_post() :
         userID = user['_id']
 
 
-    return URLController.post(url, userID, userType)
+    response, status = URLController.post(url, userID, userType)
+    return Response(response = response, status = status)
 
 @main.route('/api/urls/<urlID>')
 def url_retrieve(urlID) :
     authenticated, user = verifyUser(request)
 
     if not authenticated :
-        return user
+        return Response(response = json.dumps(user), status = 401)
 
     userID = user['_id']
     
-    url = URLController.retrieve(urlID, userID)
-    return url
+    url, status = URLController.retrieve(urlID, userID)
+    return Response(response = url, status = status)
 
 @main.route('/api/urls/<urlID>', methods=['DELETE'])
 def url_delete(urlID) :
     authenticated, user = verifyUser(request)
 
     if not authenticated :
-        return user
+        return Response(response = json.dumps(user), status = 401)
 
     userID = user['_id']
 
-    url = URLController.delete(urlID, userID)
-    return url
+    url, status = URLController.delete(urlID, userID)
+    return Response(response = url, status = status)
 
 @main.route('/api/urls/<urlID>', methods=['PATCH'])
 def url_update(urlID) :
     updates = request.get_json()
     if not updates :
-        return {'message': 'No update details provided'}
+        return Response(response = json.dumps({'message': 'No update details provided'}), status = 406)
 
     authenticated, user = verifyUser(request)
 
     if not authenticated :
-        return user
+        return Response(response = json.dumps(user), status = 401)
 
     userID = user['_id']
 
-    url = URLController.update(urlID, updates, userID)
-    return url
+    url, status = URLController.update(urlID, updates, userID)
+    return Response(url, status)

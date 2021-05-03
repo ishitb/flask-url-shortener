@@ -14,7 +14,7 @@ class URL :
 
     def get(self, user) :
         urls = self.collection.find({'user': user})
-        return json.dumps([url for url in urls], default=json_util.default)
+        return json.dumps([url for url in urls], default=json_util.default), 200
 
     def retrieve(self, id, user) :
         url = self.collection.find_one({"_id": objectid.ObjectId(id), "user": user})
@@ -22,8 +22,9 @@ class URL :
         found = url is not None
 
         err_msg = {'message': 'This URL does not exist in our database. Please check the spelling or contact us.'}
+        status = 200 if found else 404
 
-        return json.dumps(url if found else err_msg, default=json_util.default)
+        return json.dumps(url if found else err_msg, default=json_util.default), status
 
     def post(self, url, user, userType) :
         uid = uuid.uuid4().hex[0:5]
@@ -40,21 +41,21 @@ class URL :
             new_short = self.collection.insert_one(newURL)
             newURL['_id'] = new_short.inserted_id
 
-            return to_json(newURL)
+            return to_json(newURL), 201
 
         except Exception as e :
             print(e)
-            return to_json({'message': 'Internal Server Error'})
+            return to_json({'message': 'Internal Server Error'}), 400
 
     def delete(self, id, user) :
         url = self.collection.find_one({"_id": objectid.ObjectId(id), 'user': user})
 
         if not url :  
             err_msg = {'message': 'This URL id does not exist in our database.'}
-            return json.dumps(err_msg, default=json_util.default)
+            return json.dumps(err_msg, default=json_util.default), 404
 
         deleted = self.collection.delete_one({"_id": objectid.ObjectId(id)})
-        return json.dumps({'message': 'Deleted'} if deleted.acknowledged else {'message': 'Internal Server Error'}, default=json_util.default)
+        return json.dumps({'message': 'Deleted'} if deleted.acknowledged else {'message': 'Internal Server Error'}, default=json_util.default), 200 if deleted.acknowledged else 400
 
     def link(self, short) :
         url = self.collection.find_one({'short': short})
@@ -62,32 +63,33 @@ class URL :
         found = url is not None
 
         err_msg = {'message': 'This URL does not exist in our database. Please check the spelling or contact us.'}
+        status = 200 if found else 404
 
-        return json.dumps(url if found else err_msg, default=json_util.default)
+        return json.dumps(url if found else err_msg, default=json_util.default), status
 
     def update(self, id, updates, user) :
         if len(updates.keys()) > 2 :
-            return {'message': 'Unverified information provided'}
+            return to_json({'message': 'Unverified information provided'}), 406
         
         try :
             short = updates['short']
             if len(short) < 4 :
-                return {'message': 'Length of the Short URL must be 4 or more'}
+                return to_json({'message': 'Length of the Short URL must be 4 or more'}), 406
 
             existing = self.collection.find_one({'short': short})
             if existing :
-                return {'message': 'This route already exists. Please try another'}
+                return to_json({'message': 'This route already exists. Please try another'}), 409
 
         except Exception as e :
             print(e)
 
         found = self.collection.find_one({'_id': objectid.ObjectId(id), 'user': user})
         if not found :
-            return {'message': 'Not Found!'}
+            return to_json({'message': 'Not Found!'}), 404
 
         update_info = self.collection.update_one({'_id': objectid.ObjectId(id)}, {"$set": updates})
 
-        return {'message': 'UPDATED'}
+        return to_json({'message': 'UPDATED'}), 202
 
 class User: 
     def __init__(self):
@@ -142,18 +144,18 @@ class User:
     def register(self, email, password, name) :
 
         if not self.emailValidator(email) :
-            return to_json({'message': 'Please make sure the email is of correct format!'})
+            return to_json({'message': 'Please make sure the email is of correct format!'}), 406
         
         if not self.passwordValidator(password) :
             # Should have at least one number.
             # Should have at least one uppercase and one lowercase character.
             # Should have at least one special symbol.
             # Should be between 6 to 20 characters long
-            return to_json({'message': 'Please make sure the password is of correct format!'})
+            return to_json({'message': 'Please make sure the password is of correct format!'}), 406
 
         exisiting = self.collection.find_one({'email': email})
         if exisiting :
-            return to_json({'message': 'User with this email already exists!'})
+            return to_json({'message': 'User with this email already exists!'}), 409
 
         user = {
             "_id": uuid.uuid4().hex,
@@ -168,35 +170,35 @@ class User:
             user.pop('password')
             token = self.createToken(user)
 
-            return to_json({"user": user, "token": token})
+            return to_json({"user": user, "token": token}), 201
 
         except Exception as e :
             traceback.print_exc()
-            return to_json({'message': 'Internal Server Error'})
+            return to_json({'message': 'Internal Server Error'}), 400
 
     def login(self, email, password) :
         if not self.emailValidator(email) :
-            return to_json({'message': 'Please make sure the email is of correct format!'})
+            return to_json({'message': 'Please make sure the email is of correct format!'}), 406
         
         if not self.passwordValidator(password) :
             # Should have at least one number.
             # Should have at least one uppercase and one lowercase character.
             # Should have at least one special symbol.
             # Should be between 6 to 20 characters long
-            return to_json({'message': 'Please make sure the password is of correct format!'})
+            return to_json({'message': 'Please make sure the password is of correct format!'}), 406
 
         user = self.collection.find_one({"email": email})
         
         if not user :
-            return to_json({'message': 'User not found!'})
+            return to_json({'message': 'User not found!'}), 404
         
         passwordCheck = self.checkHashPassword(password, user['password'])
         if not passwordCheck :
-            return to_json({'message': 'Password Incorrect!'})
+            return to_json({'message': 'Password Incorrect!'}), 403
 
         user.pop('password')
         token = self.createToken(user)
-        return to_json({"user": user, "token": token})
+        return to_json({"user": user, "token": token}), 202
 
     def verifyUser(self, token) :
         check, decoded = self.decodeToken(token)
