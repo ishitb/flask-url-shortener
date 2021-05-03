@@ -98,6 +98,7 @@ export default {
 
     verifyUser: thunk(async (actions) => {
         let savedToken = cookies.load('Token');
+        console.log('Hello');
 
         if (savedToken === undefined) {
             actions.logout();
@@ -112,6 +113,7 @@ export default {
                 .then(
                     async (res) => {
                         let resp = await res.json();
+                        console.log(resp);
 
                         if (res.status === 202)
                             actions.setUserData(resp);

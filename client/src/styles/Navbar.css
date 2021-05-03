@@ -1,0 +1,13 @@
+nav {
+    height: 7.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.nav-links {
+    width: 10rem;
+    font-size: 1.1rem;
+    padding: 0.25rem 1.5rem;
+}

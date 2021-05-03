@@ -74,6 +74,7 @@ def url_get_all() :
 
 @main.route('/api/urls', methods = ['POST'])
 def url_post() :
+    print(request.get_json())
     try :
         url = request.get_json()['url']
     except Exception as e :

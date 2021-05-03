@@ -77,9 +77,9 @@ a {
     color: var(--light);
 }
 
-input,
-button {
-    border: none;
+input:focus,
+button:focus {
+    outline: none;
 }
 
 /* COMMON CLASSES */
@@ -115,11 +115,11 @@ button {
     background-color: var(--primary-translucent);
 }
 
-.background-background {
+.background-main {
     background-color: var(--background);
 }
 
-.background-background-translucent {
+.background-main-translucent {
     background-color: var(--background-translucent);
 }
 
@@ -146,7 +146,7 @@ button {
 .submit-button {
     background-color: var(--dark-translucent);
     color: var(--light);
-    font-size: 1.5rem;
+    font-size: 1.25rem !important;
     text-align: center;
     border: none;
     border-radius: 10px;
@@ -174,7 +174,7 @@ button {
     border: 2.5px solid var(--accent);
     color: var(--accent);
     background-color: transparent;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-align: center;
     border-radius: 10rem;
     width: 50%;
@@ -189,7 +189,7 @@ button {
 }
 
 .submit-border:hover {
-    background-color: var(--primary);
+    background-color: var(--accent);
     color: var(--light);
 }
 
@@ -231,6 +231,13 @@ button {
     font-size: 2rem;
     font-weight: 500;
     /* text-transform: capitalize; */
+}
+
+.weird-text {
+    font-family: var(--weird-font);
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
 }
 
 .normal-text {
@@ -289,10 +296,34 @@ button {
 .glass-effect {
     backdrop-filter: blur(2.5px);
     -webkit-backdrop-filter: blur(2.5px);
-    box-shadow: 0 8px 32px 0 var(--primary-translucent);
+    box-shadow: 0 1px 20px var(--primary-translucent);
 }
 
 .display-none {
     display: none;
     opacity: 0;
+}
+
+.input-box {
+    padding: 0.75rem 1rem;
+    width: 50%;
+    font-size: 1.15rem;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    color: var(--dark);
+    transition: all 0.3s;
+}
+
+.input-box:focus {
+    border: 2px solid var(--accent);
+}
+
+.input-box::placeholder {
+    color: var(--dark-translucent);
+}
+
+@media (max-width: 1000px) {
+    .input-box {
+        width: 85%;
+    }
 }

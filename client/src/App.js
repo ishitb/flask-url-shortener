@@ -5,6 +5,7 @@ import { injectStyle } from 'react-toastify/dist/inject-style';
 
 import './App.css';
 
+const Navbar = lazy(() => import('./components/Navbar'));
 const Home = lazy(() => import('./components/Home'));
 
 if (typeof window !== 'undefined') {
@@ -13,16 +14,15 @@ if (typeof window !== 'undefined') {
 
 function App() {
     return (
-        <Suspense fallback={<></>}>
-            <ToastContainer />
-            <Switch>
-                <Route exact to='/' component={Home} />
-                <Route
-                    to='/:short'
-                    component={() => <></>}
-                />
-            </Switch>
-        </Suspense>
+        <div className='App background-main'>
+            <Suspense fallback={<></>}>
+                <ToastContainer />
+                <Navbar />
+                <Switch>
+                    <Route exact to='/' component={Home} />
+                </Switch>
+            </Suspense>
+        </div>
     );
 }
 
