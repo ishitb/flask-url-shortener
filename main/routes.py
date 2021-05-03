@@ -18,9 +18,9 @@ def verifyUser(request) :
         return False, {'message': 'User not Authenticated'}
     
     token = token[6:]
-    user = UserController.verifyUser(token)
+    user, check = UserController.verifyUser(token)
 
-    return True, user
+    return check, user
 
 
 @main.route('/')
@@ -51,20 +51,12 @@ def login() :
 
 @main.route('/auth/verify', methods = ['GET'])
 def verify() :
-    
     authenticated, user = verifyUser(request)
 
     if not authenticated :
         return json.dumps(user), 401
 
-    userID = user['_id']
-
-    userLinks = URLController.get(userID)
-
-    return Response(response = json.dumps({
-        'user': user,
-        'urls': userLinks
-    }), status = 200)
+    return Response(response = json.dumps(user), status = 202)
 
 
 # URL Routes

@@ -1,13 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Goldman&family=Lobster&family=Montserrat:wght@400;600&family=Raleway&display=swap');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas,
+        'Courier New', monospace;
+}
+
+html,
+#root,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Root Styles */
+:root {
+    --accent: hsla(4, 99%, 66%, 1);
+    --accent-translucent: rgba(254, 93, 82, 0.7);
+    --dark: hsla(214, 35%, 37%, 1);
+    --dark-translucent: hsla(214, 35%, 37%, 0.7);
+    --primary: hsla(210, 96%, 40%, 1);
+    --primary-translucent: hsla(210, 96%, 40%, 0.7);
+    --light: hsla(182, 82%, 93%, 1);
+    --light-translucent: hsla(182, 82%, 93%, 0.7);
+    --background: hsla(218, 23%, 21%, 1);
+    --background-translucent: hsla(218, 23%, 21%, 0.7);
+    --heading-font: 'Goldman', cursive;
+    --subheading-font: 'Raleway', sans-serif;
+    --normal-font: 'Montserrat', sans-serif;
+    --weird-font: 'Lobster', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--normal-font);
+}
+
+*::-webkit-scrollbar {
+    width: 0.3rem;
+    height: 0.3rem;
+    cursor: pointer;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: var(--accent);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 100rem;
+    cursor: pointer;
+}
+
+.curtains-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+a {
+    text-decoration: none;
+    color: var(--light);
+}
+
+input,
+button {
+    border: none;
+}
+
+/* COMMON CLASSES */
+.background-accent {
+    background-color: var(--accent);
+}
+
+.background-accent-translucent {
+    background-color: var(--accent-translucent);
+}
+
+.background-light {
+    background-color: var(--light);
+}
+
+.background-light-translucent {
+    background-color: var(--light-translucent);
+}
+
+.background-dark {
+    background-color: var(--dark);
+}
+
+.background-dark-translucent {
+    background-color: var(--dark-translucent);
+}
+
+.background-primary {
+    background-color: var(--primary);
+}
+
+.background-primary-traslucent {
+    background-color: var(--primary-translucent);
+}
+
+.background-background {
+    background-color: var(--background);
+}
+
+.background-background-translucent {
+    background-color: var(--background-translucent);
+}
+
+.foreground-accent {
+    color: var(--accent);
+}
+
+.foreground-light {
+    color: var(--light);
+}
+
+.foreground-dark {
+    color: var(--dark);
+}
+
+.foreground-primary {
+    color: var(--primary);
+}
+
+.foreground-background {
+    color: var(--background);
+}
+
+.submit-button {
+    background-color: var(--dark-translucent);
+    color: var(--light);
+    font-size: 1.5rem;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    width: 50%;
+    padding: 0.75rem 2rem;
+    transition: all 0.7s;
+    cursor: pointer;
+}
+
+.submit-button:focus {
+    outline: none;
+}
+
+@media (max-width: 1000px) {
+    .submit-button {
+        width: 85%;
+    }
+}
+
+.submit-button:hover {
+    box-shadow: 0 0 15px 2px var(--primary);
+}
+
+.submit-border {
+    border: 2.5px solid var(--accent);
+    color: var(--accent);
+    background-color: transparent;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 10rem;
+    width: 50%;
+    padding: 0.75rem 2rem;
+    transition: all 0.7s;
+    cursor: pointer;
+}
+
+.submit-border.dark {
+    border: 2.5px solid var(--background);
+    color: var(--background);
+}
+
+.submit-border:hover {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.submit-border.dark:hover {
+    background-color: var(--background);
+}
+
+.heading-font {
+    font-family: var(--heading-font);
+    /* text-transform: ; */
+}
+
+.subheading-font {
+    font-family: var(--subheading-font);
+}
+
+.normal-font {
+    font-family: var(--normal-font);
+}
+
+.main-heading-text {
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.25rem;
+    text-transform: capitalize;
+}
+
+.heading-text {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 0.25rem;
+    text-transform: capitalize;
+}
+
+.subheading-text {
+    font-family: var(--subheading-font);
+    font-size: 2rem;
+    font-weight: 500;
+    /* text-transform: capitalize; */
+}
+
+.normal-text {
+    font-family: var(--normal-font);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+@media (max-width: 800px) {
+    .main-heading-text {
+        font-size: 2.5rem;
+    }
+
+    .heading-text {
+        font-size: 2rem;
+    }
+
+    .subheading-text {
+        font-size: 1.5rem;
+    }
+}
+
+.uppercase-text {
+    text-transform: uppercase;
+}
+
+.lowercase-text {
+    text-transform: lowercase;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+.border-radius-5 {
+    border-radius: 5px;
+}
+
+.box-shadow {
+    box-shadow: 0 0 30px 10px var(--dark);
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.glass-effect {
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    box-shadow: 0 8px 32px 0 var(--primary-translucent);
+}
+
+.display-none {
+    display: none;
+    opacity: 0;
 }

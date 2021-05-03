@@ -66,6 +66,9 @@ class URL :
         err_msg = {'message': 'This URL does not exist in our database. Please check the spelling or contact us.'}
         status = 200 if found else 404
 
+        if not found :
+            url_update_click = self.collection.update_one({'_id': objectid.ObjectId(url['_id'])}, {"$set": {'clicks': url['clicks'] + 1}})
+
         return json.dumps(url if found else err_msg, default=json_util.default), status
 
     def update(self, id, updates, user) :
@@ -205,7 +208,7 @@ class User:
         check, decoded = self.decodeToken(token)
 
         if not check :
-            return to_json({'message': 'Invalid Authentication'})
+            return to_json({'message': 'Invalid Authentication'}), False
         
         
         try :
@@ -216,7 +219,7 @@ class User:
                 raise Exception("Invalid Authentication")
         except Exception as e :
             print(e)
-            return to_json({'message': 'Invalid Authentication'})
+            return to_json({'message': 'Invalid Authentication'}), False
 
-        return decoded
+        return decoded, True
 

@@ -1,42 +1,28 @@
-import { useEffect } from 'react';
-import logo from './logo.svg';
+import { Suspense, lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
+
 import './App.css';
 
-function App() {
-    useEffect(() => {
-        fetch('/auth/verify', {
-            headers: {
-                Authorization:
-                    'Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NTAzMjQyZmQzOTQ0ZTllYjNhYWRkZTJkNmJlMjk5MyIsImVtYWlsIjoiaXNoYmVzd2FsQGdtYWlsLmNvbSIsIm5hbWUiOiJJc2hpdCBCZXN3YWwifQ.FFF0VU3a87ezZfpbsy2rVnwfzERpaGp8dgehHvtEg7Q',
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => console.log(data));
-        // eslint-disable-next-line
-    }, []);
+const Home = lazy(() => import('./components/Home'));
 
+if (typeof window !== 'undefined') {
+    injectStyle();
+}
+
+function App() {
     return (
-        <div className='App'>
-            <header className='App-header'>
-                <img
-                    src={logo}
-                    className='App-logo'
-                    alt='logo'
+        <Suspense fallback={<></>}>
+            <ToastContainer />
+            <Switch>
+                <Route exact to='/' component={Home} />
+                <Route
+                    to='/:short'
+                    component={() => <></>}
                 />
-                <p>
-                    Edit <code>src/App.js</code> and save to
-                    reload.
-                </p>
-                <a
-                    className='App-link'
-                    href='https://reactjs.org'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+            </Switch>
+        </Suspense>
     );
 }
 
