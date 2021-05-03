@@ -140,3 +140,8 @@ def url_update(urlID) :
 
     url, status = URLController.update(urlID, updates, userID)
     return Response(url, status)
+
+@main.route('/api/urls/get/<short>')
+def url_link(short) :
+    url, status = URLController.link(short)
+    return Response(response = url, status = status)
