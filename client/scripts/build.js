@@ -27,22 +27,6 @@ const printHostingInstructions = require('react-dev-utils/printHostingInstructio
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 
-// CUSTOM
-const custom = async () => {
-    let customPackageFile = {};
-    await fs.readJSON('package.json', (err, f) => {
-        customPackageFile = f;
-        customPackageFile['homepage'] = '/static/react';
-        fs.writeJSON(
-            'package.json',
-            customPackageFile,
-            (err, w) => {
-                console.log(err);
-            }
-        );
-    });
-};
-
 const measureFileSizesBeforeBuild =
     FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild =
@@ -79,16 +63,13 @@ checkBrowsers(paths.appPath, isInteractive)
         // This lets us display how much they changed later.
         return measureFileSizesBeforeBuild(paths.appBuild);
     })
-    .then(async (previousFileSizes) => {
+    .then((previousFileSizes) => {
         // Remove all content but keep the directory so that
         // if you're in it, you don't end up in Trash
         fs.emptyDirSync(paths.appBuild);
         // Merge with the public folder
         copyPublicFolder();
         // Start the webpack build
-
-        await custom();
-
         return build(previousFileSizes);
     })
     .then(
@@ -261,19 +242,6 @@ function build(previousFileSizes) {
                         reject(new Error(error))
                     );
             }
-
-            let customPackageFile = {};
-            fs.readJSON('package.json', (err, f) => {
-                customPackageFile = f;
-                delete customPackageFile.homepage;
-                fs.writeJSON(
-                    'package.json',
-                    customPackageFile,
-                    (err, w) => {
-                        console.log(err);
-                    }
-                );
-            });
 
             return resolve(resolveArgs);
         });
