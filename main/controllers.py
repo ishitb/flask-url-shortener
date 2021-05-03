@@ -66,7 +66,7 @@ class URL :
         err_msg = {'message': 'This URL does not exist in our database. Please check the spelling or contact us.'}
         status = 200 if found else 404
 
-        if not found :
+        if found :
             url_update_click = self.collection.update_one({'_id': objectid.ObjectId(url['_id'])}, {"$set": {'clicks': url['clicks'] + 1}})
 
         return json.dumps(url if found else err_msg, default=json_util.default), status
