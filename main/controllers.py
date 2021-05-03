@@ -69,7 +69,7 @@ class URL :
         if found :
             url_update_click = self.collection.update_one({'_id': objectid.ObjectId(url['_id'])}, {"$set": {'clicks': url['clicks'] + 1}})
 
-        return json.dumps(url if found else err_msg, default=json_util.default), status
+        return url if found else err_msg, status
 
     def update(self, id, updates, user) :
         if len(updates.keys()) > 2 :

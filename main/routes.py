@@ -137,4 +137,6 @@ def url_update(urlID) :
 @main.route('/api/urls/get/<short>')
 def url_link(short) :
     url, status = URLController.link(short)
-    return Response(response = url, status = status)
+    if status != 200 :
+        return render_template('404.html')
+    return redirect(url['original'])

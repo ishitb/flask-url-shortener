@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/AddLink.css"],"names":[],"mappings":"AAAA,UACI,UAAW,CACX,UAAW,CACX,oCAA6B,CAA7B,4BAA6B,CAC7B,0BAAmB,CAAnB,kBACJ","file":"3.fd19f6f3.chunk.css","sourcesContent":[".add-link {\r\n    height: 25%;\r\n    width: 100%;\r\n    justify-content: space-evenly;\r\n    align-items: center;\r\n}\r\n"]}

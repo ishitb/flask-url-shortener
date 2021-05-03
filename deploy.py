@@ -30,5 +30,5 @@ f.close()
 os.chdir(curr_dir)
 
 os.system('git add .')
-os.system(f'git commit -m {commit_message} --allow-empty')
+os.system(f'git commit -m "{commit_message}" --allow-empty')
 os.system('git push')
