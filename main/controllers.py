@@ -1,6 +1,6 @@
 from main.mongo import MongoDB
 from bson import json_util, objectid
-import json, uuid, bcrypt, re, jwt, os, traceback
+import json, uuid, bcrypt, re, jwt, os, traceback, datetime
 
 mongoDB = MongoDB()
 
@@ -34,7 +34,8 @@ class URL :
             'short': uid,
             'clicks': 0,
             'userType': userType,
-            'user': user
+            'user': user,
+            'created': datetime.datetime.now()
         }
 
         try :
