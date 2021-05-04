@@ -28,7 +28,7 @@ const Navbar = ({ setSigningIn }) => {
                     className='submit-border nav-links uppercase-text'
                     onClick={() => {
                         logout();
-                        toast.dark(
+                        toast.success(
                             'Successfully Logged Out!'
                         );
                     }}
@@ -37,7 +37,7 @@ const Navbar = ({ setSigningIn }) => {
                 </button>
             ) : (
                 <button
-                    className='submit-border nav-links uppercase-text'
+                    className='submit-border border-radius-10 nav-links uppercase-text'
                     onClick={() => {
                         setSigningIn(true);
                     }}

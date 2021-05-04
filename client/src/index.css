@@ -348,3 +348,9 @@ button:focus {
 .w-25 {
     width: 25%;
 }
+
+.error {
+    border-color: #d90429 !important;
+    border-width: 2px;
+    background-color: #d9042748 !important;
+}

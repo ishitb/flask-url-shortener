@@ -48,7 +48,7 @@ const AddLink = () => {
                 const responseShort = `${window.location}${resp.short}`;
                 setShort(responseShort);
                 urlRef.current.value = responseShort;
-                toast.dark(
+                toast.success(
                     'Link shortened! Press COPY to copy it to your clipboard'
                 );
                 setConfettiAnimStopped(false);
@@ -59,7 +59,7 @@ const AddLink = () => {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(short);
-        toast.dark(
+        toast.success(
             'Shortened URL copied to your clipboard'
         );
         setCopied(true);

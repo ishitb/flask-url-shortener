@@ -15,7 +15,7 @@ export default {
             actions,
             { email, password, toggleLoader }
         ) => {
-            fetch(`/auth/login/`, {
+            fetch(`/auth/login`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default {
                         console.log(res);
                         actions.setToken(res.token);
                         actions.setUserData(res.user);
-                        toast.dark(
+                        toast.success(
                             'Logged in Successfully!'
                         );
                     } else {
@@ -63,20 +63,23 @@ export default {
                 name,
                 toggleLoader,
                 setError,
+                goBack,
             }
         ) => {
+            setError(3);
+
             // ! ERROR TYPES :
             // ! 0 ==> Email Error
             // ! 1 ==> Password Error
             // ! 2 ==> Name Error
 
             if (password !== password2) {
-                setError(0);
+                setError(1);
                 toast.error("Passwords don't match!");
                 return;
             }
 
-            fetch(`/auth/register/`, {
+            fetch(`/auth/register`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -95,11 +98,16 @@ export default {
                         console.log(res);
                         actions.setToken(res.token);
                         actions.setUserData(res.user);
-                        toast.dark(
+                        toast.success(
                             'Registered in successfully'
                         );
+                        goBack();
                     } else {
                         toast.error(res.message);
+
+                        if (res['error-type'] !== 'server')
+                            setError(res['error-type']);
+
                         console.log(res);
                         actions.logout();
                     }

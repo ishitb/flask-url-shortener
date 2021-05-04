@@ -1,6 +1,38 @@
-const Register = ({ setSignUpForm }) => {
+import { useState, useRef } from 'react';
+import { useStoreActions } from 'easy-peasy';
+
+const Register = ({ setSignUpForm, setSigningIn }) => {
+    const { register } = useStoreActions(
+        (actions) => actions.accountModel
+    );
+    const { toggleLoader } = useStoreActions(
+        (actions) => actions.loaderModel
+    );
+
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const password1Ref = useRef();
+    const nameRef = useRef();
+
+    const [errorType, setErrorType] = useState(3);
+
     const signUp = async (e) => {
         e.preventDefault();
+
+        const emailVal = emailRef.current.value;
+        const nameVal = nameRef.current.value;
+        const passwordVal = passwordRef.current.value;
+        const password1Val = password1Ref.current.value;
+
+        register({
+            email: emailVal,
+            password: passwordVal,
+            password2: password1Val,
+            name: nameVal,
+            toggleLoader: toggleLoader,
+            goBack: () => setSigningIn(false),
+            setError: setErrorType,
+        });
     };
 
     return (
@@ -14,9 +46,15 @@ const Register = ({ setSignUpForm }) => {
                         <i className='far fa-user foreground-accent'></i>
                     </label>
                     <input
+                        onChange={() => {
+                            setErrorType(3);
+                        }}
+                        ref={nameRef}
                         name='name'
                         type='text'
-                        className='form-input w-100'
+                        className={`form-input w-100 ${
+                            errorType === 2 ? 'error' : ''
+                        }`}
                         placeholder='Name'
                         required
                         maxLength='32'
@@ -27,9 +65,15 @@ const Register = ({ setSignUpForm }) => {
                         <i className='far fa-envelope foreground-accent'></i>
                     </label>
                     <input
+                        onChange={() => {
+                            setErrorType(3);
+                        }}
+                        ref={emailRef}
                         name='email'
                         type='text'
-                        className='form-input w-100'
+                        className={`form-input w-100 ${
+                            errorType === 0 ? 'error' : ''
+                        }`}
                         placeholder='Email'
                         required
                     />
@@ -39,12 +83,19 @@ const Register = ({ setSignUpForm }) => {
                         <i className='fas fa-key foreground-accent'></i>
                     </label>
                     <input
+                        onChange={() => {
+                            setErrorType(3);
+                        }}
+                        ref={passwordRef}
                         type='password'
                         name='password'
-                        className='form-input w-100'
+                        className={`form-input w-100 ${
+                            errorType === 1 ? 'error' : ''
+                        }`}
                         placeholder='Password'
                         required
-                        minLength='5'
+                        minLength='6'
+                        maxLength='20'
                     />
                 </div>
                 <div className='form-field'>
@@ -52,9 +103,15 @@ const Register = ({ setSignUpForm }) => {
                         <i className='fas fa-key foreground-accent'></i>
                     </label>
                     <input
+                        onChange={() => {
+                            setErrorType(3);
+                        }}
+                        ref={password1Ref}
                         type='password'
                         name='confirmpassword'
-                        className='form-input w-100'
+                        className={`form-input w-100 ${
+                            errorType === 1 ? 'error' : ''
+                        }`}
                         placeholder='Confirm Password'
                         required
                     />

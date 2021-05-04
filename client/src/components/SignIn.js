@@ -29,6 +29,7 @@ const SignIn = ({ signingIn, setSigningIn }) => {
                         />
                         <Register
                             setSignUpForm={setSignUpForm}
+                            setSigningIn={setSigningIn}
                         />
                     </div>
                 </div>
