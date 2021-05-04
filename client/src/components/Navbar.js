@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import '../styles/Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ setSigningIn }) => {
     const { user_logged_in } = useStoreState(
         (store) => store.accountModel
     );
@@ -38,7 +38,9 @@ const Navbar = () => {
             ) : (
                 <button
                     className='submit-border nav-links uppercase-text'
-                    onClick={() => {}}
+                    onClick={() => {
+                        setSigningIn(true);
+                    }}
                 >
                     Sign In
                 </button>

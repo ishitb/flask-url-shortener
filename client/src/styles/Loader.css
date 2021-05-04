@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: hsla(150, 10%, 16%, 0.85);
+    background-color: var(--background-translucent);
     opacity: 0;
     pointer-events: none;
     transition: all 0.5s ease-in;
@@ -40,14 +40,19 @@
 }
 
 .loader:after {
-    background: #262e2a;
+    background: var(--background);
     border-radius: 50%;
-    box-shadow: 0em -2.6em #262e2a,
-        2.25em -4.02em transparent, 2.25em -1.25em #262e2a,
-        4.6em 0em transparent, 2.25em 1.25em #262e2a,
-        2.25em 4.02em transparent, 0em 2.6em #262e2a,
-        -2.25em 4.02em transparent, -2.25em 1.25em #262e2a,
-        -4.6em 0em transparent, -2.25em -1.25em #262e2a,
+    box-shadow: 0em -2.6em var(--background),
+        2.25em -4.02em transparent,
+        2.25em -1.25em var(--background),
+        4.6em 0em transparent,
+        2.25em 1.25em var(--background),
+        2.25em 4.02em transparent,
+        0em 2.6em var(--background),
+        -2.25em 4.02em transparent,
+        -2.25em 1.25em var(--background),
+        -4.6em 0em transparent,
+        -2.25em -1.25em var(--background),
         -2.25em -4.02em transparent;
     content: '';
     display: block;

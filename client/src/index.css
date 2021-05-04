@@ -31,7 +31,7 @@ body {
     --accent: hsla(4, 99%, 66%, 1);
     --accent-translucent: rgba(254, 93, 82, 0.7);
     --dark: hsla(214, 35%, 37%, 1);
-    --dark-translucent: hsla(214, 35%, 37%, 0.7);
+    --dark-translucent: hsla(214, 35%, 37%, 0.85);
     --primary: hsla(210, 96%, 40%, 1);
     --primary-translucent: hsla(210, 96%, 40%, 0.7);
     --light: hsla(182, 82%, 93%, 1);
@@ -88,7 +88,7 @@ button:focus {
 
 /* COMMON CLASSES */
 .background-accent {
-    background-color: var(--accent);
+    background-color: var(--accent) !important;
 }
 
 .background-accent-translucent {
@@ -331,4 +331,20 @@ button:focus {
     .input-box {
         width: 85%;
     }
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-25 {
+    width: 25%;
 }

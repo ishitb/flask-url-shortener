@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
@@ -7,6 +7,7 @@ import Loader from './components/Loader';
 import './App.css';
 
 const Navbar = lazy(() => import('./components/Navbar'));
+const SignIn = lazy(() => import('./components/SignIn'));
 const Home = lazy(() => import('./components/Home'));
 
 if (typeof window !== 'undefined') {
@@ -14,13 +15,19 @@ if (typeof window !== 'undefined') {
 }
 
 function App() {
+    const [signingIn, setSigningIn] = useState(false);
+
     return (
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<Loader />}>
             <div className='App background-main'>
                 <ToastContainer />
-                <Navbar />
+                <Navbar setSigningIn={setSigningIn} />
                 <Home />
             </div>
+            <SignIn
+                signingIn={signingIn}
+                setSigningIn={setSigningIn}
+            />
             <Loader />
         </Suspense>
     );
