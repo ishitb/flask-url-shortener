@@ -2,6 +2,8 @@ import { Suspense, lazy } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
+import Loader from './components/Loader';
+
 import './App.css';
 
 const Navbar = lazy(() => import('./components/Navbar'));
@@ -13,13 +15,14 @@ if (typeof window !== 'undefined') {
 
 function App() {
     return (
-        <div className='App background-main'>
-            <Suspense fallback={<></>}>
+        <Suspense fallback={<></>}>
+            <div className='App background-main'>
                 <ToastContainer />
                 <Navbar />
                 <Home />
-            </Suspense>
-        </div>
+            </div>
+            <Loader />
+        </Suspense>
     );
 }
 

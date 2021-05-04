@@ -22,6 +22,10 @@ body {
     width: 100%;
 }
 
+#root {
+    z-index: 1;
+}
+
 /* Root Styles */
 :root {
     --accent: hsla(4, 99%, 66%, 1);
@@ -33,7 +37,7 @@ body {
     --light: hsla(182, 82%, 93%, 1);
     --light-translucent: hsla(182, 82%, 93%, 0.7);
     --background: hsla(218, 23%, 21%, 1);
-    --background-translucent: hsla(218, 23%, 21%, 0.7);
+    --background-translucent: hsla(218, 23%, 21%, 0.85);
     --heading-font: 'Goldman', cursive;
     --subheading-font: 'Raleway', sans-serif;
     --normal-font: 'Montserrat', sans-serif;
