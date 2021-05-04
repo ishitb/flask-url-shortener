@@ -33,13 +33,13 @@ def register() :
     body = request.get_json()
     
     if not body or "email" not in body.keys() :
-        return Response(response = json.dumps({'message': 'Please provide the email details propelry', 'error-type': 'email' }), status = 406)
+        return Response(response = json.dumps({'message': 'Please provide the email details propelry', 'error-type': 0 }), status = 406)
 
     if "name" not in body.keys() :
-        return Response(response = json.dumps({'message': 'Please provide the name details propelry', 'error-type': 'name' }), status = 406)
+        return Response(response = json.dumps({'message': 'Please provide the name details propelry', 'error-type': 2 }), status = 406)
 
     if "password" not in body.keys() :
-        return Response(response = json.dumps({'message': 'Please provide the password details propelry', 'error-type': 'password' }), status = 406)
+        return Response(response = json.dumps({'message': 'Please provide the password details propelry', 'error-type': 1 }), status = 406)
 
     response, status = UserController.register(body['email'], body['password'], body['name'])
     return Response(response = response, status = status)
@@ -49,10 +49,10 @@ def login() :
     body = request.get_json()
     
     if not body or "email" not in body.keys() :
-        return Response(response = json.dumps({'message': 'Please provide the email details propelry', 'error-type': 'email' }), status = 406)
+        return Response(response = json.dumps({'message': 'Please provide the email details propelry', 'error-type': 0 }), status = 406)
 
     if "password" not in body.keys() :
-        return Response(response = json.dumps({'message': 'Please provide the password details propelry', 'error-type': 'password' }), status = 406)
+        return Response(response = json.dumps({'message': 'Please provide the password details propelry', 'error-type': 1 }), status = 406)
 
     response, status = UserController.login(body['email'], body['password'])
     
