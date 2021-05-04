@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy } from 'react';
+import { lazy } from 'react';
 
 import '../styles/Home.css';
 

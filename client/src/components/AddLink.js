@@ -1,11 +1,20 @@
 import { useState, useRef } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
+import Lottie from 'react-lottie';
+
+import confetti from '../assets/confetti.json';
 
 import '../styles/AddLink.css';
 
 const AddLink = () => {
     const [short, setShort] = useState('');
+    const [
+        confettiAnimStopped,
+        setConfettiAnimStopped,
+    ] = useState(true);
+    const [copied, setCopied] = useState(false);
+
     const urlRef = useRef();
 
     const addLink = async (e) => {
@@ -42,6 +51,7 @@ const AddLink = () => {
                 toast.dark(
                     'Link shortened! Press COPY to copy it to your clipboard'
                 );
+                setConfettiAnimStopped(false);
             }
         });
         console.log('DONE');
@@ -52,6 +62,16 @@ const AddLink = () => {
         toast.dark(
             'Shortened URL copied to your clipboard'
         );
+        setCopied(true);
+    };
+
+    const confettiOptions = {
+        loop: false,
+        autoplay: false,
+        animationData: confetti,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice',
+        },
     };
 
     return (
@@ -65,24 +85,50 @@ const AddLink = () => {
                 type='url'
                 className='input-box'
                 placeholder='Enter full link to shorten'
-                onChange={() => setShort('')}
+                onChange={() => {
+                    setShort('');
+                    setCopied(false);
+                }}
                 ref={urlRef}
             />
             {short ? (
                 <button
                     onClick={copyToClipboard}
-                    className='subheading-text submit-button uppercase-text'
+                    className={`subheading-text submit-button uppercase-text copy-button ${
+                        copied ? 'copied' : ''
+                    }`}
                 >
-                    COPY
+                    <p className='copy-text'>COPY</p>
                 </button>
             ) : (
                 <button
                     type='submit'
-                    className='subheading-text submit-button uppercase-text'
+                    className='subheading-text submit-button uppercase-text copy-button'
                 >
                     Shorten
                 </button>
             )}
+            <div className='lottie confetti'>
+                <Lottie
+                    options={confettiOptions}
+                    height={400}
+                    width={400}
+                    isStopped={confettiAnimStopped}
+                    eventListeners={[
+                        {
+                            eventName: 'complete',
+                            callback: () => {
+                                setConfettiAnimStopped(
+                                    true
+                                );
+                                console.log(
+                                    'Animation Completed'
+                                );
+                            },
+                        },
+                    ]}
+                />
+            </div>
         </form>
     );
 };
