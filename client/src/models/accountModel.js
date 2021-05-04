@@ -56,8 +56,26 @@ export default {
     register: thunk(
         async (
             actions,
-            { email, password, name, toggleLoader }
+            {
+                email,
+                password,
+                password2,
+                name,
+                toggleLoader,
+                setError,
+            }
         ) => {
+            // ! ERROR TYPES :
+            // ! 0 ==> Email Error
+            // ! 1 ==> Password Error
+            // ! 2 ==> Name Error
+
+            if (password !== password2) {
+                setError(0);
+                toast.error("Passwords don't match!");
+                return;
+            }
+
             fetch(`/auth/register/`, {
                 method: 'POST',
                 headers: new Headers({
@@ -74,7 +92,7 @@ export default {
                     const res = await resp.json();
 
                     if (resp.status === 201) {
-                        // console.log(res);
+                        console.log(res);
                         actions.setToken(res.token);
                         actions.setUserData(res.user);
                         toast.dark(
@@ -82,13 +100,13 @@ export default {
                         );
                     } else {
                         toast.error(res.message);
-                        // console.log(res);
+                        console.log(res);
                         actions.logout();
                     }
                 })
                 .catch((e) => {
                     toast.error('Internal Server Error');
-                    // console.log(e);
+                    console.log(e);
                     actions.logout();
                     toggleLoader(false);
                 })
