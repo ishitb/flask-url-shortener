@@ -148,18 +148,18 @@ class User:
     def register(self, email, password, name) :
 
         if not self.emailValidator(email) :
-            return to_json({'message': 'Please make sure the email is of correct format!'}), 406
+            return to_json({'message': 'Please make sure the email is of correct format!', 'error-type': 'email'}), 406
         
         if not self.passwordValidator(password) :
             # Should have at least one number.
             # Should have at least one uppercase and one lowercase character.
             # Should have at least one special symbol.
             # Should be between 6 to 20 characters long
-            return to_json({'message': 'Please make sure the password is of correct format!'}), 406
+            return to_json({'message': 'Please make sure the password is of correct format!', 'error-type': 'password'}), 406
 
         exisiting = self.collection.find_one({'email': email})
         if exisiting :
-            return to_json({'message': 'User with this email already exists!'}), 409
+            return to_json({'message': 'User with this email already exists!', 'error-type': 'email'}), 409
 
         user = {
             "_id": uuid.uuid4().hex,
@@ -178,27 +178,27 @@ class User:
 
         except Exception as e :
             traceback.print_exc()
-            return to_json({'message': 'Internal Server Error'}), 400
+            return to_json({'message': 'Internal Server Error', 'error-type': 'server'}), 400
 
     def login(self, email, password) :
         if not self.emailValidator(email) :
-            return to_json({'message': 'Please make sure the email is of correct format!'}), 406
+            return to_json({'message': 'Please make sure the email is of correct format!', 'error-type': 'email'}), 406
         
         if not self.passwordValidator(password) :
             # Should have at least one number.
             # Should have at least one uppercase and one lowercase character.
             # Should have at least one special symbol.
             # Should be between 6 to 20 characters long
-            return to_json({'message': 'Please make sure the password is of correct format!'}), 406
+            return to_json({'message': 'Please make sure the password is of correct format!', 'error-type': 'password'}), 406
 
         user = self.collection.find_one({"email": email})
         
         if not user :
-            return to_json({'message': 'User not found!'}), 404
+            return to_json({'message': 'User not found!', 'error-type': 'email'}), 404
         
         passwordCheck = self.checkHashPassword(password, user['password'])
         if not passwordCheck :
-            return to_json({'message': 'Password Incorrect!'}), 403
+            return to_json({'message': 'Password Incorrect!', 'error-type': 'password'}), 403
 
         user.pop('password')
         token = self.createToken(user)
