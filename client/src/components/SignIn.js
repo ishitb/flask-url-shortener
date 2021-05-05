@@ -26,7 +26,7 @@ const SignIn = ({ signingIn, setSigningIn }) => {
                 pageRef={pageRef}
             />
             <div className='container-100'>
-                <div className='card-container border-radius-10'>
+                <div className='card-container glass-effect border-radius-10'>
                     <div
                         className={`card border-radius-10 ${
                             signUpForm ? 'flipped' : ''

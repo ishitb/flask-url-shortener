@@ -5,6 +5,7 @@
     padding: 1.5rem 2rem;
     font-size: 1.25rem;
     justify-content: space-between;
+    position: relative;
 }
 
 .details {
@@ -14,4 +15,38 @@
 
 .details .detail:nth-child(2) {
     text-align: right;
+}
+
+.buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.buttons i {
+    font-size: 1.75rem;
+    transition: all 0.4s;
+}
+
+.link-btn {
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+    border: solid 2px var(--accent);
+    border-top: none;
+    border-right: none;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.link-btn:hover {
+    background-color: var(--accent);
+}
+
+.link-btn:hover i {
+    color: var(--light) !important;
+}
+
+.delete-btn {
+    border-bottom-left-radius: 10px;
 }

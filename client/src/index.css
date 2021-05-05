@@ -33,6 +33,7 @@ body {
     --dark: hsla(214, 35%, 37%, 1);
     --dark-translucent: hsla(214, 35%, 37%, 0.25);
     --dark-translucent-1: hsla(214, 35%, 37%, 0.75);
+    --dark-translucent-2: hsla(214, 35%, 37%, 0.5);
     --primary: hsla(210, 96%, 40%, 1);
     --primary-translucent: hsla(210, 96%, 40%, 0.7);
     --light: hsla(182, 82%, 93%, 1);
@@ -364,7 +365,7 @@ button:focus {
     width: 25%;
 }
 
-input.error {
+.error {
     border-color: var(--error) !important;
     border-width: 2px;
     background-color: var(--error-translucent) !important;

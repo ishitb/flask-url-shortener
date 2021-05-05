@@ -13,16 +13,14 @@ const Home = () => {
 
     return (
         <div className='home'>
-            <div className='main-heading-text foreground-light center-text'>
-                {user_logged_in && (
-                    <>
-                        <span className='foreground-accent'>
-                            Welcome
-                        </span>{' '}
-                        {user_data.name}
-                    </>
-                )}
-            </div>
+            {user_logged_in && (
+                <div className='main-heading-text foreground-light center-text'>
+                    <span className='foreground-accent'>
+                        Welcome
+                    </span>{' '}
+                    {user_data.name}
+                </div>
+            )}
             <AddLink />
             {user_logged_in && <Links />}
         </div>

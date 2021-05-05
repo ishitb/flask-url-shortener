@@ -72,17 +72,25 @@ class URL :
         return url if found else err_msg, status
 
     def update(self, id, updates, user) :
-        if len(updates.keys()) > 2 :
+        try :
+            new_id = updates['_id']
+            newclicks = updates['clicks']
+            newuserType = updates['userType']
+            newuser = updates['user']
+            newcreated = updates['created']
+            
             return to_json({'message': 'Unverified information provided'}), 406
-        
+        except Exception as e :
+            print(e)
+
         try :
             short = updates['short']
             if len(short) < 4 :
-                return to_json({'message': 'Length of the Short URL must be 4 or more'}), 406
+                return to_json({'message': 'Length of the Short URL must be 4 or more', 'error-type': 'short'}), 406
 
             existing = self.collection.find_one({'short': short})
             if existing :
-                return to_json({'message': 'This route already exists. Please try another'}), 409
+                return to_json({'message': 'This route already exists. Please try another', 'error-type': 'short'}), 409
 
         except Exception as e :
             print(e)

@@ -7,14 +7,14 @@ const Link = lazy(() => import('./Link'));
 
 const Links = () => {
     const { stored_links } = useStoreState(
-        (state) => state.accountModel
+        (state) => state.linkModel
     );
 
     const { toggleLoader } = useStoreActions(
         (actions) => actions.loaderModel
     );
     const { retrieveLinks } = useStoreActions(
-        (actions) => actions.accountModel
+        (actions) => actions.linkModel
     );
 
     useEffect(() => {

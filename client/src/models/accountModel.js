@@ -8,7 +8,6 @@ export default {
     user_logged_in: false,
     token: null,
     user_data: {},
-    stored_links: [],
 
     // THUNKS
     login: thunk(
@@ -168,35 +167,6 @@ export default {
                 });
     }),
 
-    retrieveLinks: thunk(async (actions, toggleLoader) => {
-        const token = cookies.load('Token');
-
-        toggleLoader(true);
-
-        fetch(`/api/urls`, {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                Authorization: token,
-            }),
-        })
-            .then(async (res) => {
-                const resp = await res.json();
-
-                if (res.status !== 200) {
-                    console.log(resp);
-                    toast.error(resp.message);
-                } else {
-                    actions.setLinks(resp);
-                }
-            })
-            .catch((e) => {
-                toast.error('Internal Server Error');
-                console.log(e);
-            })
-            .finally(() => toggleLoader(false));
-    }),
-
     // ACTIONS
     setToken: action(async (state, token) => {
         cookies.save('Token', `Token ${token}`, {
@@ -216,11 +186,5 @@ export default {
         state.user_logged_in = false;
         state.token = null;
         state.user_data = {};
-    }),
-    updateLinks: action((state, link) => {
-        state.stored_links = [...state.stored_links, link];
-    }),
-    setLinks: action((state, links) => {
-        state.stored_links = [...links];
     }),
 };

@@ -24,6 +24,7 @@ function App() {
                 <Navbar setSigningIn={setSigningIn} />
                 <Home />
             </div>
+
             <SignIn
                 signingIn={signingIn}
                 setSigningIn={setSigningIn}

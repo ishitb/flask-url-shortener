@@ -34,7 +34,10 @@ const GoBack = ({ goBack, pageRef }) => {
         <div
             className='go-back'
             onClick={() => {
-                filterInputs(getNodes(pageRef?.current));
+                if (pageRef)
+                    filterInputs(
+                        getNodes(pageRef?.current)
+                    );
 
                 goBack();
             }}
