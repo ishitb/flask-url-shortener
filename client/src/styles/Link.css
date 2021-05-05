@@ -1,0 +1,17 @@
+.link {
+    height: 17.5rem;
+    width: 25rem;
+    border: 2px solid var(--accent);
+    padding: 1.5rem 2rem;
+    font-size: 1.25rem;
+    justify-content: space-between;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details .detail:nth-child(2) {
+    text-align: right;
+}

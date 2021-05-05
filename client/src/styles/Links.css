@@ -1,0 +1,19 @@
+.links {
+    max-height: 60%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.links-list {
+    padding: 0 1.5rem;
+    max-height: 90%;
+    width: 100%;
+    margin: 1.5% 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    overflow-y: auto;
+}

@@ -8,6 +8,7 @@ export default {
     user_logged_in: false,
     token: null,
     user_data: {},
+    stored_links: [],
 
     // THUNKS
     login: thunk(
@@ -38,7 +39,6 @@ export default {
                     const res = await resp.json();
 
                     if (resp.status === 202) {
-                        console.log(res);
                         actions.setToken(res.token);
                         actions.setUserData(res.user);
                         toast.success(
@@ -108,7 +108,6 @@ export default {
                     const res = await resp.json();
 
                     if (resp.status === 201) {
-                        console.log(res);
                         actions.setToken(res.token);
                         actions.setUserData(res.user);
                         toast.success(
@@ -137,7 +136,6 @@ export default {
 
     verifyUser: thunk(async (actions) => {
         let savedToken = cookies.load('Token');
-        console.log('Hello');
 
         if (savedToken === undefined) {
             actions.logout();
@@ -152,7 +150,6 @@ export default {
                 .then(
                     async (res) => {
                         let resp = await res.json();
-                        console.log(resp);
 
                         if (res.status === 202)
                             actions.setUserData(resp);
@@ -169,6 +166,35 @@ export default {
                     // console.log(e);
                     actions.logout();
                 });
+    }),
+
+    retrieveLinks: thunk(async (actions, toggleLoader) => {
+        const token = cookies.load('Token');
+
+        toggleLoader(true);
+
+        fetch(`/api/urls`, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                Authorization: token,
+            }),
+        })
+            .then(async (res) => {
+                const resp = await res.json();
+
+                if (res.status !== 200) {
+                    console.log(resp);
+                    toast.error(resp.message);
+                } else {
+                    actions.setLinks(resp);
+                }
+            })
+            .catch((e) => {
+                toast.error('Internal Server Error');
+                console.log(e);
+            })
+            .finally(() => toggleLoader(false));
     }),
 
     // ACTIONS
@@ -190,5 +216,11 @@ export default {
         state.user_logged_in = false;
         state.token = null;
         state.user_data = {};
+    }),
+    updateLinks: action((state, link) => {
+        state.stored_links = [...state.stored_links, link];
+    }),
+    setLinks: action((state, links) => {
+        state.stored_links = [...links];
     }),
 };

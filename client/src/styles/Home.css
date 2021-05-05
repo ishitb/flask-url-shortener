@@ -1,8 +1,9 @@
 .home {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    gap: 1.5rem;
     height: 92.5%;
     padding: 2.5% 5%;
 }

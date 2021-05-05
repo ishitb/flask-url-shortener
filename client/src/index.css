@@ -31,13 +31,15 @@ body {
     --accent: hsla(4, 99%, 66%, 1);
     --accent-translucent: rgba(254, 93, 82, 0.7);
     --dark: hsla(214, 35%, 37%, 1);
-    --dark-translucent: hsla(214, 35%, 37%, 0.85);
+    --dark-translucent: hsla(214, 35%, 37%, 0.25);
     --primary: hsla(210, 96%, 40%, 1);
     --primary-translucent: hsla(210, 96%, 40%, 0.7);
     --light: hsla(182, 82%, 93%, 1);
     --light-translucent: hsla(182, 82%, 93%, 0.7);
     --background: hsla(218, 23%, 21%, 1);
     --background-translucent: hsla(218, 23%, 21%, 0.85);
+    --error: hsl(350, 96%, 43%);
+    --error-translucent: hsla(350, 96%, 43%, 0.282);
     --heading-font: 'Goldman', cursive;
     --subheading-font: 'Raleway', sans-serif;
     --normal-font: 'Montserrat', sans-serif;
@@ -127,6 +129,14 @@ button:focus {
     background-color: var(--background-translucent);
 }
 
+.background-error {
+    background-color: var(--error);
+}
+
+.background-error-translucent {
+    background-color: var(--error-translucent);
+}
+
 .foreground-accent {
     color: var(--accent);
 }
@@ -145,6 +155,10 @@ button:focus {
 
 .foreground-background {
     color: var(--background);
+}
+
+.foreground-error {
+    color: var(--error);
 }
 
 .submit-button {
@@ -350,9 +364,9 @@ button:focus {
 }
 
 input.error {
-    border-color: #d90429 !important;
+    border-color: var(--error) !important;
     border-width: 2px;
-    background-color: #d9042748 !important;
+    background-color: var(--error-translucent) !important;
 }
 
 /* input:-webkit-autofill {
