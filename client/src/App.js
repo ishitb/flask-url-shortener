@@ -20,6 +20,30 @@ function App() {
     return (
         <Suspense fallback={<Loader />}>
             <div className='App background-main'>
+                <div class='background'>
+                    <ul class='circles'>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
                 <ToastContainer />
                 <Navbar setSigningIn={setSigningIn} />
                 <Home />
