@@ -2,20 +2,25 @@ import { useState, useRef } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
+import { useStoreActions } from 'easy-peasy';
 
 import confetti from '../assets/confetti.json';
 
 import '../styles/AddLink.css';
 
 const AddLink = () => {
+    const { toggleLoader } = useStoreActions(
+        (actions) => actions.loaderModel
+    );
+
+    const urlRef = useRef();
+
     const [short, setShort] = useState('');
     const [
         confettiAnimStopped,
         setConfettiAnimStopped,
     ] = useState(true);
     const [copied, setCopied] = useState(false);
-
-    const urlRef = useRef();
 
     const addLink = async (e) => {
         e.preventDefault();
@@ -28,6 +33,8 @@ const AddLink = () => {
             return;
         }
 
+        toggleLoader(true);
+
         fetch('/api/urls', {
             method: 'POST',
             headers: new Headers({
@@ -38,23 +45,30 @@ const AddLink = () => {
             body: JSON.stringify({
                 url: url,
             }),
-        }).then(async (res) => {
-            const resp = await res.json();
+        })
+            .then(async (res) => {
+                const resp = await res.json();
 
-            if (res.status !== 201) {
-                console.log(resp);
-                toast.error(resp.message);
-            } else {
-                const responseShort = `${window.location}${resp.short}`;
-                setShort(responseShort);
-                urlRef.current.value = responseShort;
-                toast.success(
-                    'Link shortened! Press COPY to copy it to your clipboard'
+                if (res.status !== 201) {
+                    console.log(resp);
+                    toast.error(resp.message);
+                } else {
+                    const responseShort = `${window.location}${resp.short}`;
+                    setShort(responseShort);
+                    urlRef.current.value = responseShort;
+                    toast.success(
+                        'Link shortened! Press COPY to copy it to your clipboard'
+                    );
+                    setConfettiAnimStopped(false);
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+                toast.error(
+                    'Internal Server Error! Please try again.'
                 );
-                setConfettiAnimStopped(false);
-            }
-        });
-        console.log('DONE');
+            })
+            .finally(() => toggleLoader(false));
     };
 
     const copyToClipboard = () => {
