@@ -139,10 +139,6 @@
     color: var(--light-translucent);
 }
 
-.form-input:-internal-autofill-selected {
-    background: var(--background-translucent) !important;
-}
-
 .form label,
 .form-input {
     border-radius: 10px;
@@ -164,32 +160,6 @@
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     color: var(--light);
-}
-
-.form-input:focus,
-.form-input:hover {
-    background-color: var(--background);
-}
-
-.form-button {
-    margin-top: 7%;
-    border-radius: 25px;
-    padding: 1rem 2rem;
-    width: 70%;
-    background-color: var(--accent);
-    color: var(--light);
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-}
-.form-button:active {
-    transform: scale(0.92);
-    transition: transform ease-in-out 0.07s;
-}
-
-.form-button:focus,
-.form-button:hover {
-    background-color: #d44179;
 }
 
 @media (max-width: 700px) {

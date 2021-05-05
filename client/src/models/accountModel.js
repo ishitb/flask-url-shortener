@@ -13,8 +13,16 @@ export default {
     login: thunk(
         async (
             actions,
-            { email, password, toggleLoader }
+            {
+                email,
+                password,
+                toggleLoader,
+                goBack,
+                setError,
+            }
         ) => {
+            toggleLoader(true);
+
             fetch(`/auth/login`, {
                 method: 'POST',
                 headers: new Headers({
@@ -36,8 +44,11 @@ export default {
                         toast.success(
                             'Logged in Successfully!'
                         );
+                        goBack();
                     } else {
                         toast.error(res.message);
+                        if (res['error-type'] !== 'server')
+                            setError(res['error-type']);
                         console.log(res);
                         actions.logout();
                     }
@@ -66,12 +77,14 @@ export default {
                 goBack,
             }
         ) => {
-            setError(3);
+            toggleLoader(true);
 
             // ! ERROR TYPES :
             // ! 0 ==> Email Error
             // ! 1 ==> Password Error
             // ! 2 ==> Name Error
+
+            setError(3);
 
             if (password !== password2) {
                 setError(1);

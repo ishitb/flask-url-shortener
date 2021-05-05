@@ -349,8 +349,13 @@ button:focus {
     width: 25%;
 }
 
-.error {
+input.error {
     border-color: #d90429 !important;
     border-width: 2px;
     background-color: #d9042748 !important;
 }
+
+/* input:-webkit-autofill {
+    -webkit-transition: 'color 9999s ease-out, background-color 9999s ease-out';
+    -webkit-transition-delay: 9999s;
+} */

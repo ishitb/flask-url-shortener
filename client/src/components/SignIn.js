@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { useState, lazy } from 'react';
+import { useState, lazy, useRef } from 'react';
 
 import '../styles/SignIn.css';
 
@@ -8,6 +8,8 @@ const Login = lazy(() => import('./Login'));
 const Register = lazy(() => import('./Register'));
 
 const SignIn = ({ signingIn, setSigningIn }) => {
+    const pageRef = useRef();
+
     const [signUpForm, setSignUpForm] = useState(false);
 
     return createPortal(
@@ -15,8 +17,14 @@ const SignIn = ({ signingIn, setSigningIn }) => {
             className={`sign-in ${
                 signingIn ? 'shown' : ''
             }`}
+            ref={pageRef}
         >
-            <GoBack goBack={() => setSigningIn(false)} />
+            <GoBack
+                goBack={() => {
+                    setSigningIn(false);
+                }}
+                pageRef={pageRef}
+            />
             <div className='container-100'>
                 <div className='card-container border-radius-10'>
                     <div
@@ -26,6 +34,7 @@ const SignIn = ({ signingIn, setSigningIn }) => {
                     >
                         <Login
                             setSignUpForm={setSignUpForm}
+                            setSigningIn={setSigningIn}
                         />
                         <Register
                             setSignUpForm={setSignUpForm}

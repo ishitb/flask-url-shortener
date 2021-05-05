@@ -25,7 +25,7 @@ const Navbar = ({ setSigningIn }) => {
             </h3>
             {user_logged_in ? (
                 <button
-                    className='submit-border nav-links uppercase-text'
+                    className='submit-border nav-links uppercase-text border-radius-10'
                     onClick={() => {
                         logout();
                         toast.success(
