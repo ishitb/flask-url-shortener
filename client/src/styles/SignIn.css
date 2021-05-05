@@ -146,17 +146,20 @@
 }
 
 .form label {
-    background-color: var(--background);
+    background-color: var(--dark-translucent);
+    border: 1.5px solid transparent;
+    border-right-color: var(--accent);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     display: grid;
     place-items: center;
+    font-size: 1.25rem;
 }
 
 .form-input {
-    background-color: var(--background-translucent);
+    background-color: var(--dark-translucent);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     color: var(--light);

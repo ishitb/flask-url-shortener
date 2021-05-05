@@ -32,6 +32,7 @@ body {
     --accent-translucent: rgba(254, 93, 82, 0.7);
     --dark: hsla(214, 35%, 37%, 1);
     --dark-translucent: hsla(214, 35%, 37%, 0.25);
+    --dark-translucent-1: hsla(214, 35%, 37%, 0.75);
     --primary: hsla(210, 96%, 40%, 1);
     --primary-translucent: hsla(210, 96%, 40%, 0.7);
     --light: hsla(182, 82%, 93%, 1);

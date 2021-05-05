@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
-import { useStoreActions } from 'easy-peasy';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import confetti from '../assets/confetti.json';
 
@@ -11,6 +11,13 @@ import '../styles/AddLink.css';
 const AddLink = () => {
     const { toggleLoader } = useStoreActions(
         (actions) => actions.loaderModel
+    );
+    const { updateLinks } = useStoreActions(
+        (actions) => actions.accountModel
+    );
+
+    const { user_logged_in } = useStoreState(
+        (state) => state.accountModel
     );
 
     const urlRef = useRef();
@@ -60,6 +67,10 @@ const AddLink = () => {
                         'Link shortened! Press COPY to copy it to your clipboard'
                     );
                     setConfettiAnimStopped(false);
+
+                    if (user_logged_in) {
+                        updateLinks(resp);
+                    }
                 }
             })
             .catch((e) => {

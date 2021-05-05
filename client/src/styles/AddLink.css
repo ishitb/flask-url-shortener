@@ -49,6 +49,10 @@
     }
 }
 
+.input-box::placeholder {
+    color: var(--dark-translucent-1);
+}
+
 .success-anim {
     width: 0;
     z-index: 1;
