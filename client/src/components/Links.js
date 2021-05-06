@@ -29,7 +29,7 @@ const Links = () => {
                 Stored Links
             </div>
             <div className='links-list'>
-                {stored_links.length < 0 ? (
+                {stored_links.length <= 0 ? (
                     <h3 className='subheading-text foreground-error'>
                         You have no stored links right.
                         Shorten a url right now!

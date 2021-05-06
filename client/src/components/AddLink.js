@@ -13,7 +13,7 @@ const AddLink = () => {
         (actions) => actions.loaderModel
     );
     const { updateLinks } = useStoreActions(
-        (actions) => actions.accountModel
+        (actions) => actions.linkModel
     );
 
     const { user_logged_in } = useStoreState(

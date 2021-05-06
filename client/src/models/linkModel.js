@@ -51,7 +51,8 @@ export default {
                 toggleLoader,
                 setError,
                 back,
-                window,
+                shortRef,
+                ogRef,
             }
         ) => {
             if (
@@ -78,8 +79,16 @@ export default {
                         console.log(resp);
                         toast.error(resp.message);
 
-                        if (res['error-type'] === 'short')
+                        ogRef.current.value =
+                            original.original;
+                        shortRef.current.value =
+                            original.short;
+
+                        if (
+                            resp['error-type'] === 'short'
+                        ) {
                             setError(true);
+                        }
                     } else {
                         toast.success(
                             'Link Updated Successfully!'
@@ -88,6 +97,7 @@ export default {
                             original,
                             updates,
                         });
+                        back();
                     }
                 })
                 .catch((e) => {
@@ -96,7 +106,6 @@ export default {
                 })
                 .finally(() => {
                     toggleLoader(false);
-                    back();
                 });
         }
     ),
@@ -138,6 +147,8 @@ export default {
 
     // ACTIONS
     updateLinks: action((state, link) => {
+        console.log('Hey');
+        console.log(link);
         state.stored_links = [...state.stored_links, link];
     }),
     setLinks: action((state, links) => {

@@ -1,12 +1,15 @@
 import { createPortal } from 'react-dom';
 import { useRef, useState } from 'react';
 import { useStoreActions } from 'easy-peasy';
+import { v4 as uuid4 } from 'uuid';
 
 import GoBack from './GoBack';
 
 import '../styles/EditLink.css';
 
 const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
+    const uuid = uuid4().toString().substr(0, 8);
+
     const editAction = useStoreActions(
         (actions) => actions.linkModel.editLink
     );
@@ -33,9 +36,12 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
             toggleLoader,
             setError,
             back: () => {
+                setError(false);
                 setToEdit({});
                 setShow(false);
             },
+            shortRef,
+            ogRef,
         });
     };
 
@@ -48,6 +54,9 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
                 goBack={() => {
                     setToEdit({});
                     setShow(false);
+                    setError(false);
+                    shortRef.current.value = toEdit.short;
+                    ogRef.current.value = toEdit.original;
                 }}
             />
             <form
@@ -56,14 +65,14 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
             >
                 <div className='edit-group w-75'>
                     <label
-                        htmlFor='edit-short'
+                        htmlFor={`${uuid}-edit-short`}
                         className='edit-label normal-text foreground-accent w-100'
                     >
                         Shortened URL
                     </label>
                     <input
                         ref={shortRef}
-                        id='edit-short'
+                        id={`${uuid}-edit-short`}
                         type='text'
                         className={`edit-input w-100 input-box background-dark-translucent foreground-light ${
                             error ? 'error' : ''
@@ -72,19 +81,20 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
                         minLength='4'
                         maxLength='12'
                         defaultValue={toEdit.short}
+                        onChange={() => setError(false)}
                         required
                     />
                 </div>
                 <div className='edit-group w-75'>
                     <label
-                        htmlFor='edit-original'
+                        htmlFor={`${uuid}-edit-original`}
                         className='edit-label normal-text foreground-accent w-100'
                     >
                         Original URL
                     </label>
                     <input
                         ref={ogRef}
-                        id='edit-original'
+                        id={`${uuid}-edit-original`}
                         type='text'
                         className='edit-input w-100 input-box background-dark-translucent foreground-light'
                         placeholder='Enter Original URL'
