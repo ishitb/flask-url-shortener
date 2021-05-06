@@ -188,14 +188,14 @@ button:focus {
 }
 
 .submit-button:hover {
-    box-shadow: 0 0 15px 2px var(--primary);
+    box-shadow: 0 2px 15px var(--accent-translucent);
 }
 
 .submit-border {
     border: 2.5px solid var(--accent);
     color: var(--accent);
     background-color: transparent;
-    font-size: 1.25rem;
+    font-size: 1.25rem !important;
     text-align: center;
     border-radius: 10rem;
     width: 50%;
@@ -317,7 +317,7 @@ button:focus {
 .glass-effect {
     backdrop-filter: blur(2.5px);
     -webkit-backdrop-filter: blur(2.5px);
-    box-shadow: 0 1px 20px var(--primary-translucent);
+    box-shadow: 0 1px 20px var(--accent-translucent);
 }
 
 .display-none {

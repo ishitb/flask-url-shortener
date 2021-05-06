@@ -20,6 +20,7 @@ function App() {
     return (
         <Suspense fallback={<Loader />}>
             <div className='App background-main'>
+                <Navbar setSigningIn={setSigningIn} />
                 <div className='background'>
                     <ul className='circles'>
                         <li></li>
@@ -45,7 +46,6 @@ function App() {
                     </ul>
                 </div>
                 <ToastContainer />
-                <Navbar setSigningIn={setSigningIn} />
                 <Home />
             </div>
 

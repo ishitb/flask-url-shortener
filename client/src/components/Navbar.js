@@ -19,7 +19,7 @@ const Navbar = ({ setSigningIn }) => {
     }, []);
 
     return (
-        <nav className='glass-effect'>
+        <nav>
             <h3 className='brand weird-text foreground-accent'>
                 furls
             </h3>

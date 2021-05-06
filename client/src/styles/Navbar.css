@@ -4,6 +4,8 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 5%;
+    border-bottom: 1px solid var(--accent);
+    z-index: 200;
 }
 
 .nav-links {

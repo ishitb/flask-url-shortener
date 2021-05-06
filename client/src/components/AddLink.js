@@ -119,7 +119,7 @@ const AddLink = () => {
             {short ? (
                 <button
                     onClick={copyToClipboard}
-                    className={`subheading-text submit-button uppercase-text copy-button ${
+                    className={`subheading-text submit-button border-radius-10 uppercase-text copy-button ${
                         copied ? 'copied' : ''
                     }`}
                 >
@@ -128,7 +128,7 @@ const AddLink = () => {
             ) : (
                 <button
                     type='submit'
-                    className='subheading-text submit-button uppercase-text copy-button'
+                    className='subheading-text submit-button border-radius-10 uppercase-text copy-button'
                 >
                     Shorten
                 </button>
