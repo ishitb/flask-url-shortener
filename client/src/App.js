@@ -20,8 +20,8 @@ function App() {
     return (
         <Suspense fallback={<Loader />}>
             <div className='App background-main'>
-                <div class='background'>
-                    <ul class='circles'>
+                <div className='background'>
+                    <ul className='circles'>
                         <li></li>
                         <li></li>
                         <li></li>
