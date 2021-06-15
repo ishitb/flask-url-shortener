@@ -5,7 +5,7 @@ import '../styles/Links.css';
 
 const Link = lazy(() => import('./Link'));
 
-const Links = () => {
+const Links = ({ inputRef }) => {
     const { stored_links } = useStoreState(
         (state) => state.linkModel
     );
@@ -30,9 +30,20 @@ const Links = () => {
             </div>
             <div className='links-list'>
                 {stored_links.length <= 0 ? (
-                    <h3 className='subheading-text foreground-error'>
+                    <h3 className='subheading-text foreground-accent center-text'>
                         You have no stored links right.
-                        Shorten a url right now!
+                        Shorten a url right{' '}
+                        <span
+                            className='foreground-error'
+                            style={{
+                                cursor: 'pointer',
+                            }}
+                            onClick={() => {
+                                inputRef.current.focus();
+                            }}
+                        >
+                            now!
+                        </span>
                     </h3>
                 ) : (
                     stored_links.map((link) => (

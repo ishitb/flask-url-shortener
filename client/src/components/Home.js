@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, useRef } from 'react';
 import { useStoreState } from 'easy-peasy';
 
 import '../styles/Home.css';
@@ -7,6 +7,8 @@ const AddLink = lazy(() => import('./AddLink'));
 const Links = lazy(() => import('./Links'));
 
 const Home = () => {
+    const inputRef = useRef();
+
     const { user_logged_in, user_data } = useStoreState(
         (store) => store.accountModel
     );
@@ -21,8 +23,10 @@ const Home = () => {
                     {user_data.name}
                 </div>
             )}
-            <AddLink />
-            {user_logged_in && <Links />}
+            <AddLink inputRef={inputRef} />
+            {user_logged_in && (
+                <Links inputRef={inputRef} />
+            )}
         </div>
     );
 };

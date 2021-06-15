@@ -8,7 +8,7 @@ import confetti from '../assets/confetti.json';
 
 import '../styles/AddLink.css';
 
-const AddLink = () => {
+const AddLink = ({ inputRef }) => {
     const { toggleLoader } = useStoreActions(
         (actions) => actions.loaderModel
     );
@@ -20,8 +20,6 @@ const AddLink = () => {
         (state) => state.accountModel
     );
 
-    const urlRef = useRef();
-
     const [short, setShort] = useState('');
     const [confettiAnimStopped, setConfettiAnimStopped] =
         useState(true);
@@ -31,7 +29,7 @@ const AddLink = () => {
         e.preventDefault();
 
         const token = cookies.load('Token');
-        const url = urlRef.current.value;
+        const url = inputRef.current.value;
 
         if (!url) {
             toast.error('URL not provided');
@@ -60,7 +58,7 @@ const AddLink = () => {
                 } else {
                     const responseShort = `${window.location}${resp.short}`;
                     setShort(responseShort);
-                    urlRef.current.value = responseShort;
+                    inputRef.current.value = responseShort;
                     toast.success(
                         'Link shortened! Press COPY to copy it to your clipboard'
                     );
@@ -112,7 +110,7 @@ const AddLink = () => {
                     setShort('');
                     setCopied(false);
                 }}
-                ref={urlRef}
+                ref={inputRef}
             />
             {short ? (
                 <button

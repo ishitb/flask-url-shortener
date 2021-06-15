@@ -74,7 +74,11 @@ const Link = ({ link }) => {
                             fontSize: '1.5rem',
                         }}
                     >
-                        {link.original}
+                        {`${link.original.substr(0, 25)}${
+                            link.original.length > 25
+                                ? '...'
+                                : ''
+                        }`}
                     </a>
                 </div>
                 <div className='details d-flex'>
