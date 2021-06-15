@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import confetti from '../assets/confetti.json';
@@ -23,10 +23,8 @@ const AddLink = () => {
     const urlRef = useRef();
 
     const [short, setShort] = useState('');
-    const [
-        confettiAnimStopped,
-        setConfettiAnimStopped,
-    ] = useState(true);
+    const [confettiAnimStopped, setConfettiAnimStopped] =
+        useState(true);
     const [copied, setCopied] = useState(false);
 
     const addLink = async (e) => {

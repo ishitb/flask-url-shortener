@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useStoreState } from 'easy-peasy';
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 
 import loadingAnim from '../assets/loader.json';
 
