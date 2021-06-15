@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_pymongo import PyMongo
@@ -16,6 +16,10 @@ mongo = PyMongo()
 mongo.init_app(app)
 
 app.register_blueprint(main)
+
+@app.errorhandler(404)
+def not_found(e) :
+    return render_template('index.html')
 
 
 if __name__ == '__main__' :

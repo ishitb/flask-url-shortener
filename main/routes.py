@@ -149,6 +149,6 @@ def url_link(short) :
 def home(path) :
     return render_template('index.html')
 
-@main.errorhandler(404)   
-def not_found(e):   
-  return render_template('index.html')
+# @main.errorhandler(404)   
+# def not_found(e):   
+#   return render_template('index.html')
