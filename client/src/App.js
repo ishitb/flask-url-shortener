@@ -1,4 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
@@ -9,6 +10,7 @@ import './App.css';
 const Navbar = lazy(() => import('./components/Navbar'));
 const SignIn = lazy(() => import('./components/SignIn'));
 const Home = lazy(() => import('./components/Home'));
+const Furls = lazy(() => import('./components/Furls'));
 
 if (typeof window !== 'undefined') {
     injectStyle();
@@ -46,7 +48,14 @@ function App() {
                     </ul>
                 </div>
                 <ToastContainer />
-                <Home />
+                <Switch>
+                    <Route
+                        exact
+                        path='/'
+                        component={Home}
+                    />
+                    <Route path='/*' component={Furls} />
+                </Switch>
             </div>
 
             <SignIn

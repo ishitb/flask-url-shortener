@@ -144,3 +144,11 @@ def url_link(short) :
     if status != 200 :
         return Response(response = json.dumps({'message': 'URL not found'}), status = 404)
     return Response(response = json.dumps({'message': 'Redirecting', 'original': url['original']}), status = 200)
+
+@main.route('/<path>')
+def home(path) :
+    return render_template('index.html')
+
+@main.errorhandler(404)   
+def not_found(e):   
+  return render_template('index.html')

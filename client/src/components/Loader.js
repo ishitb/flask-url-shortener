@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useStoreState } from 'easy-peasy';
-import Lottie from 'react-lottie-player';
+import Lottie from 'react-lottie';
 
 import loadingAnim from '../assets/loader.json';
 
@@ -35,9 +35,6 @@ const Loader = () => {
                     isStopped={!loader_shown}
                 />
             </div>
-            {/* <div className='loader'>
-                <div className='inner'></div>
-            </div> */}
         </div>,
         document.getElementById('loader')
     );

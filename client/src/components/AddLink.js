@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
-import Lottie from 'react-lottie-player';
+import Lottie from 'react-lottie';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import confetti from '../assets/confetti.json';

@@ -8,6 +8,8 @@ import {
     createStore,
     persist,
 } from 'easy-peasy';
+import { BrowserRouter } from 'react-router-dom';
+
 import model from './models';
 
 const store = createStore(
@@ -17,7 +19,9 @@ const store = createStore(
 ReactDOM.render(
     <React.StrictMode>
         <StoreProvider store={store}>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </StoreProvider>
     </React.StrictMode>,
     document.getElementById('root')
