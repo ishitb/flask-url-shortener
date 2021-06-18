@@ -93,12 +93,9 @@ const Link = ({ link }) => {
                     <div className='detail'>
                         <div className='detail-text foreground-primary'>
                             {date
-                                .toGMTString()
-                                .substr(
-                                    5,
-                                    date.toGMTString()
-                                        .length - 12
-                                )}
+                                .toString()
+                                .substr(4, 17)
+                                .trim()}
                         </div>
                         <div className='detail-label normal-text foreground-light'>
                             Created at

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
