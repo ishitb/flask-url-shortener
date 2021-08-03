@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/GoBack.css"],"names":[],"mappings":"AAAA,SACI,WAAY,CACZ,UAAW,CACX,iBACJ","file":"6.cfa53322.chunk.css","sourcesContent":[".go-back {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n}\n"]}
