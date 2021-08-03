@@ -138,16 +138,23 @@ def url_update(urlID) :
     url, status = URLController.update(urlID, updates, userID)
     return Response(url, status)
 
-@main.route('/api/get/<short>')
+# @main.route('/api/get/<short>')
+# def url_link(short) :
+#     url, status = URLController.link(short)
+#     if status != 200 :
+#         return Response(response = json.dumps({'message': 'URL not found'}), status = 404)
+#     return Response(response = json.dumps({'message': 'Redirecting', 'original': url['original']}), status = 200)
+
+@main.route('/<short>')
 def url_link(short) :
     url, status = URLController.link(short)
     if status != 200 :
-        return Response(response = json.dumps({'message': 'URL not found'}), status = 404)
-    return Response(response = json.dumps({'message': 'Redirecting', 'original': url['original']}), status = 200)
+        return render_template('404.html')
+    return redirect(url['original'])
 
-@main.route('/<path>')
-def home(path) :
-    return render_template('index.html')
+# @main.route('/<path>')
+# def home(path) :
+#     return render_template('index.html')
 
 # @main.errorhandler(404)   
 # def not_found(e):   
