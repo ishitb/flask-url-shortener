@@ -2,3 +2,4 @@
 *venv*
 *.pyc
 .bash_aliases
+client/build
