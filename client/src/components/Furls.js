@@ -20,7 +20,7 @@ const Furls = () => {
     const getOriginal = async () => {
         toggleLoader(true);
 
-        const short = params[0];
+        const short = params['*'];
 
         fetch(`/api/get/${short}`)
             .then(async (res) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import confetti from '../assets/confetti.json';
@@ -86,15 +86,6 @@ const AddLink = ({ inputRef }) => {
         setCopied(true);
     };
 
-    const confettiOptions = {
-        loop: false,
-        autoplay: false,
-        animationData: confetti,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-        },
-    };
-
     return (
         <form
             onSubmit={(e) =>
@@ -131,23 +122,18 @@ const AddLink = ({ inputRef }) => {
             )}
             <div className='lottie confetti'>
                 <Lottie
-                    options={confettiOptions}
-                    height={400}
-                    width={400}
-                    isStopped={confettiAnimStopped}
-                    eventListeners={[
-                        {
-                            eventName: 'complete',
-                            callback: () => {
-                                setConfettiAnimStopped(
-                                    true
-                                );
-                                console.log(
-                                    'Animation Completed'
-                                );
-                            },
-                        },
-                    ]}
+                    animationData={confetti}
+                    loop={false}
+                    onComplete={() => setConfettiAnimStopped(true)}
+                    play={!confettiAnimStopped}
+                    rendererSettings={{
+                        preserveAspectRatio:
+                            'xMidYMid slice',
+                    }}
+                    style={{
+                        height: 400,
+                        width: 400,
+                    }}
                 />
             </div>
         </form>
