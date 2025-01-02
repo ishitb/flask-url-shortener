@@ -42,7 +42,7 @@ function App() {
                         <li></li>
                     </ul>
                 </div>
-                <ToastContainer />
+                <ToastContainer theme="dark" />
                 <Routes>
                     <Route
                         exact

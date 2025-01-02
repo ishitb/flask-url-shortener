@@ -26,10 +26,10 @@ const Link = ({ link }) => {
                 setToEdit={setToEdit}
                 setShow={setShow}
             />
-            <div className='link d-flex-column background-dark-translucent border-radius-10'>
+            <div className='link d-flex-column background-main-translucent border-radius-10'>
                 <div className='buttons'>
                     <div
-                        className='edit-btn  link-btn'
+                        className='edit-btn link-btn'
                         onClick={() => {
                             setToEdit(link);
                             setShow(true);
@@ -83,22 +83,22 @@ const Link = ({ link }) => {
                 </div>
                 <div className='details d-flex'>
                     <div className='detail'>
-                        <div className='detail-text foreground-accent'>
-                            {link.clicks}
-                        </div>
                         <div className='detail-label normal-text foreground-light'>
                             Clicks
                         </div>
+                        <div className='detail-text foreground-accent'>
+                            {link.clicks}
+                        </div>
                     </div>
                     <div className='detail'>
+                        <div className='detail-label normal-text foreground-light'>
+                            Created at
+                        </div>
                         <div className='detail-text foreground-primary'>
                             {date
                                 .toString()
                                 .substr(4, 17)
                                 .trim()}
-                        </div>
-                        <div className='detail-label normal-text foreground-light'>
-                            Created at
                         </div>
                     </div>
                 </div>

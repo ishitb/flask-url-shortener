@@ -41,41 +41,48 @@ const Login = ({ setSignUpForm, setSigningIn }) => {
                         ref={emailRef}
                         name='email'
                         type='email'
-                        className={`form-input w-100 ${
-                            errorType === 0 ? 'error' : ''
-                        }`}
+                        className={`form-input w-100 ${errorType === 0 ? 'error' : ''
+                            }`}
                         placeholder='Email'
                         required
                     />
                 </div>
-                <div className='form-field w-100'>
-                    <label htmlFor='login-password'>
-                        <i className='fas fa-key foreground-accent'></i>
-                    </label>
-                    <input
-                        onChange={() => setErrorType(2)}
-                        ref={passwordRef}
-                        type='password'
-                        name='password'
-                        className={`form-input w-100 ${
-                            errorType === 1 ? 'error' : ''
-                        }`}
-                        placeholder='Password'
-                        required
-                    />
+                <div class="password">
+                    <div className='form-field w-100'>
+                        <label htmlFor='login-password'>
+                            <i className='fas fa-key foreground-accent'></i>
+                        </label>
+                        <input
+                            onChange={() => setErrorType(2)}
+                            ref={passwordRef}
+                            type='password'
+                            name='password'
+                            className={`form-input password w-100 ${errorType === 1 ? 'error' : ''
+                                }`}
+                            placeholder='Password'
+                            required
+                            minLength={6}
+                            maxLength={20}
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$"
+                        />
+                    </div>
+                    <p className='password-requirements detail-label foreground-accent'>
+                        (Password must be 6-20 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character 1)
+                    </p>
                 </div>
                 <button
-                    className='submit-button background-accent uppercase-text border-radius-5 w-100'
+                    className='submit-border border-radius-5 uppercase-text w-100 mt-4'
                     type='submit'
                 >
+                    <i class="fas fa-viruses"></i>{" "}
                     Sign In
                 </button>
             </form>
             <button
-                className='submit-border border-radius-10 w-75 flip-btn'
+                className='submit-button flip-btn border-radius-10 w-85'
                 onClick={() => setSignUpForm(true)}
             >
-                SIGN UP
+                Sign Up
             </button>
         </div>
     );

@@ -14,9 +14,8 @@ const SignIn = ({ signingIn, setSigningIn }) => {
 
     return createPortal(
         <div
-            className={`sign-in ${
-                signingIn ? 'shown' : ''
-            }`}
+            className={`sign-in ${signingIn ? 'shown' : ''
+                }`}
             ref={pageRef}
         >
             <GoBack
@@ -28,9 +27,14 @@ const SignIn = ({ signingIn, setSigningIn }) => {
             <div className='container-100'>
                 <div className='card-container glass-effect border-radius-10'>
                     <div
-                        className={`card border-radius-10 ${
-                            signUpForm ? 'flipped' : ''
-                        }`}
+                        className='edit-btn link-btn buttons'
+                        onClick={() => setSigningIn(false)}
+                    >
+                        <i className="fas fa-times fa-lg foreground-accent"></i>
+                    </div>
+                    <div
+                        className={`card border-radius-10 ${signUpForm ? 'flipped' : ''
+                            }`}
                     >
                         <Login
                             setSignUpForm={setSignUpForm}
