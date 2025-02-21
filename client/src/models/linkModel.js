@@ -28,7 +28,6 @@ export default {
                 const resp = await res.json();
 
                 if (res.status !== 200) {
-                    console.log(resp);
                     toast.error(resp.message);
                 } else {
                     actions.setLinks(resp);
@@ -36,7 +35,7 @@ export default {
             })
             .catch((e) => {
                 toast.error('Internal Server Error');
-                console.log(e);
+                console.error(e);
             })
             .finally(() => toggleLoader(false));
     }),
@@ -76,7 +75,6 @@ export default {
                     const resp = await res.json();
 
                     if (res.status !== 202) {
-                        console.log(resp);
                         toast.error(resp.message);
 
                         ogRef.current.value =
@@ -102,7 +100,7 @@ export default {
                 })
                 .catch((e) => {
                     toast.error('Internal Server Error');
-                    console.log(e);
+                    console.error(e);
                 })
                 .finally(() => {
                     toggleLoader(false);
@@ -127,7 +125,7 @@ export default {
                     const resp = await res.json();
 
                     if (res.status !== 200) {
-                        console.log(resp);
+                        console.error(resp);
                         toast.error(resp.message);
                     } else {
                         toast.success(
@@ -139,7 +137,7 @@ export default {
                 })
                 .catch((e) => {
                     toast.error('Internal Server Error');
-                    console.log(e);
+                    console.error(e);
                 })
                 .finally(() => toggleLoader(false));
         }
@@ -147,8 +145,6 @@ export default {
 
     // ACTIONS
     updateLinks: action((state, link) => {
-        console.log('Hey');
-        console.log(link);
         state.stored_links = [...state.stored_links, link];
     }),
     setLinks: action((state, links) => {
@@ -160,8 +156,6 @@ export default {
     updateLink: action((state, { original, updates }) => {
         let updatedLink = { ...original };
 
-        console.log({ updatedLink, updates });
-
         if (updates.short !== undefined) {
             updatedLink.short = updates.short;
         }
@@ -172,7 +166,6 @@ export default {
         let index = state.stored_links.findIndex(
             (link) => link._id.$oid === original._id.$oid
         );
-        console.log(index);
 
         let curr = state.stored_links;
         curr[index] = updatedLink;

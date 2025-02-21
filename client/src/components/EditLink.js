@@ -23,6 +23,12 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
 
     const [error, setError] = useState(false);
 
+    const closeModal = () => {
+        setError(false);
+        setToEdit({});
+        setShow(false);
+    }
+
     const editLink = async (e) => {
         e.preventDefault();
 
@@ -35,11 +41,7 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
             original: toEdit,
             toggleLoader,
             setError,
-            back: () => {
-                setError(false);
-                setToEdit({});
-                setShow(false);
-            },
+            back: closeModal,
             shortRef,
             ogRef,
         });
@@ -52,9 +54,7 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
         >
             <GoBack
                 goBack={() => {
-                    setToEdit({});
-                    setShow(false);
-                    setError(false);
+                    closeModal();
                     shortRef.current.value = toEdit.short;
                     ogRef.current.value = toEdit.original;
                 }}
@@ -63,6 +63,12 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
                 onSubmit={editLink}
                 className='glass-effect edit-form background-main-translucent border-radius-10'
             >
+                <div
+                    className='edit-btn link-btn buttons'
+                    onClick={closeModal}
+                >
+                    <i className="fas fa-times fa-lg foreground-accent"></i>
+                </div>
                 <div className='edit-group w-75'>
                     <label
                         htmlFor={`${uuid}-edit-short`}
@@ -74,9 +80,8 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
                         ref={shortRef}
                         id={`${uuid}-edit-short`}
                         type='text'
-                        className={`edit-input w-100 input-box background-dark-translucent foreground-light ${
-                            error ? 'error' : ''
-                        }`}
+                        className={`edit-input w-100 input-box background-dark foreground-light ${error ? 'error' : ''
+                            }`}
                         placeholder='Enter Shortened URL'
                         minLength='4'
                         maxLength='12'
@@ -96,7 +101,7 @@ const EditLink = ({ toEdit, show, setShow, setToEdit }) => {
                         ref={ogRef}
                         id={`${uuid}-edit-original`}
                         type='text'
-                        className='edit-input w-100 input-box background-dark-translucent foreground-light'
+                        className='edit-input w-100 input-box background-dark foreground-light'
                         placeholder='Enter Original URL'
                         minLength='4'
                         defaultValue={toEdit.original}

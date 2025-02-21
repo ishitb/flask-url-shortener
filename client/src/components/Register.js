@@ -52,9 +52,8 @@ const Register = ({ setSignUpForm, setSigningIn }) => {
                         ref={nameRef}
                         name='name'
                         type='text'
-                        className={`form-input w-100 ${
-                            errorType === 2 ? 'error' : ''
-                        }`}
+                        className={`form-input w-100 ${errorType === 2 ? 'error' : ''
+                            }`}
                         placeholder='Name'
                         required
                         maxLength='32'
@@ -71,32 +70,35 @@ const Register = ({ setSignUpForm, setSigningIn }) => {
                         ref={emailRef}
                         name='email'
                         type='text'
-                        className={`form-input w-100 ${
-                            errorType === 0 ? 'error' : ''
-                        }`}
+                        className={`form-input w-100 ${errorType === 0 ? 'error' : ''
+                            }`}
                         placeholder='Email'
                         required
                     />
                 </div>
-                <div className='form-field'>
-                    <label htmlFor='password'>
-                        <i className='fas fa-key foreground-accent'></i>
-                    </label>
-                    <input
-                        onChange={() => {
-                            setErrorType(3);
-                        }}
-                        ref={passwordRef}
-                        type='password'
-                        name='password'
-                        className={`form-input w-100 ${
-                            errorType === 1 ? 'error' : ''
-                        }`}
-                        placeholder='Password'
-                        required
-                        minLength='6'
-                        maxLength='20'
-                    />
+                <div class="password">
+                    <div className='form-field'>
+                        <label htmlFor='password'>
+                            <i className='fas fa-key foreground-accent'></i>
+                        </label>
+                        <input
+                            onChange={() => {
+                                setErrorType(3);
+                            }}
+                            ref={passwordRef}
+                            type='password'
+                            name='password'
+                            className={`form-input password w-100 ${errorType === 1 ? 'error' : ''
+                                }`}
+                            placeholder='Password'
+                            required
+                            minLength='6'
+                            maxLength='20'
+                        />
+                    </div>
+                    <p className='password-requirements detail-label foreground-accent'>
+                        (Password must be 6-20 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character 1)
+                    </p>
                 </div>
                 <div className='form-field'>
                     <label htmlFor='confirm password'>
@@ -109,25 +111,25 @@ const Register = ({ setSignUpForm, setSigningIn }) => {
                         ref={password1Ref}
                         type='password'
                         name='confirmpassword'
-                        className={`form-input w-100 ${
-                            errorType === 1 ? 'error' : ''
-                        }`}
+                        className={`form-input w-100 ${errorType === 1 ? 'error' : ''
+                            }`}
                         placeholder='Confirm Password'
                         required
                     />
                 </div>
                 <button
-                    className='submit-button border-radius-10 uppercase-text background-accent w-100'
+                    className='submit-border border-radius-10 uppercase-text w-100'
                     type='submit'
                 >
+                    <i class="fas fa-viruses"></i>{" "}
                     Sign Up
                 </button>
             </form>
             <button
-                className='submit-border border-radius-10 flip-btn w-75'
+                className='submit-button border-radius-10 flip-btn w-85'
                 onClick={() => setSignUpForm(false)}
             >
-                SIGN IN
+                Sign In
             </button>
         </div>
     );

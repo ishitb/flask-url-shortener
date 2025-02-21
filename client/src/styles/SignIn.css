@@ -37,7 +37,7 @@
 }
 
 .card-container {
-    height: 75%;
+    height: 55%;
     width: 85%;
     position: relative;
     perspective: 800px;
@@ -69,14 +69,15 @@
 .back {
     position: absolute;
     width: 100%;
-    height: 75%;
+    /* height: 75%; */
     backface-visibility: hidden;
     padding: 2rem;
     transform: rotateY(0deg);
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    gap: 1.5rem;
 }
 
 .back {
@@ -86,11 +87,11 @@
 .form {
     justify-content: center;
     height: 75%;
-    width: 75%;
+    width: 85%;
 }
 
 .back > form {
-    gap: 0.5rem;
+    /* gap: 0.5rem; */
 }
 
 .form-field {
@@ -99,8 +100,8 @@
     margin: 0.75rem 0;
 }
 
-.form .form-field:last-of-type {
-    margin-bottom: 1.5rem;
+.password .form-field {
+    margin: 0;
 }
 
 .icon {
@@ -128,11 +129,12 @@
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 .form-input:focus {
     border-color: var(--accent);
+    border-left-color: transparent;
 }
 
 .form-input::placeholder {
@@ -146,8 +148,8 @@
 }
 
 .form label {
-    background-color: var(--dark-translucent);
-    border: 1.5px solid transparent;
+    background-color: var(--dark);
+    border: 2px solid transparent;
     border-right-color: var(--accent);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
@@ -158,8 +160,13 @@
     font-size: 1.25rem;
 }
 
+.form label i {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
 .form-input {
-    background-color: var(--dark-translucent);
+    background-color: var(--dark);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     color: var(--light);

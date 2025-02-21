@@ -31,7 +31,7 @@ body {
     --accent: hsla(4, 99%, 66%, 1);
     --accent-translucent: rgba(254, 93, 82, 0.7);
     --dark: hsla(214, 35%, 37%, 1);
-    --dark-translucent: hsla(214, 35%, 37%, 0.25);
+    --dark-translucent: hsla(214, 35%, 37%, 0.35);
     --dark-translucent-1: hsla(214, 35%, 37%, 0.75);
     --dark-translucent-2: hsla(214, 35%, 37%, 0.5);
     --primary: hsla(210, 96%, 40%, 1);
@@ -164,7 +164,7 @@ button:focus {
 }
 
 .submit-button {
-    background-color: var(--dark-translucent);
+    background-color: var(--dark-translucent-1);
     color: var(--light);
     font-size: 1.25rem !important;
     text-align: center;
@@ -175,6 +175,7 @@ button:focus {
     transition: all 0.7s;
     cursor: pointer;
     position: relative;
+    border: 2.5px solid transparent;
 }
 
 .submit-button:focus {
@@ -188,7 +189,9 @@ button:focus {
 }
 
 .submit-button:hover {
-    box-shadow: 0 2px 15px var(--accent-translucent);
+    /* box-shadow: 0 2px 15px var(--accent-translucent); */
+    border: 2.5px solid var(--accent);
+    color: var(--accent);
 }
 
 .submit-border {
@@ -353,6 +356,10 @@ button:focus {
     width: 100%;
 }
 
+.w-85 {
+    width: 85%;
+}
+
 .w-75 {
     width: 75%;
 }
@@ -375,3 +382,50 @@ button:focus {
     -webkit-transition: 'color 9999s ease-out, background-color 9999s ease-out';
     -webkit-transition-delay: 9999s;
 } */
+
+.buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 10px;
+    z-index: 2;
+}
+
+.buttons i {
+    /* font-size: 1.75rem; */
+    transition: all 0.4s;
+}
+
+.link-btn {
+    /* padding: 1rem; */
+    display: grid;
+    place-items: center;
+    border: solid 2px var(--accent);
+    border-top: none;
+    border-right: none;
+    cursor: pointer;
+    transition: all 0.4s;
+    height: 3rem;
+    width: 3rem;
+}
+
+.link-btn:hover {
+    background-color: var(--accent);
+}
+
+.link-btn:hover i {
+    color: var(--light) !important;
+}
+
+.edit-btn {
+    border-top-right-radius: 5px;
+}
+
+.delete-btn {
+    border-bottom-left-radius: 10px;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
