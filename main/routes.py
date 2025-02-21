@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, render_template, Response
+from flask import Blueprint, redirect, request, render_template, Response, send_file
 import main.controllers as controllers
 import json, uuid
 
@@ -146,6 +146,13 @@ def url_link_v1(short) :
 
 @main.route('/<short>')
 def url_link(short) :
+    if (short == 'favicon.ico') :
+        print("BROOO")
+        return send_file('client/build/favicon.ico', mimetype='image/ico')
+    if (short == 'manifest.json') :
+        return send_file('client/build/manifest.json', mimetype='application/json')
+    if (short == 'robots.txt') :
+        return send_file('client/build/robots.txt', mimetype='text/plain')
     url, status = URLController.link(short)
     if status != 200 :
         return render_template('404.html')
