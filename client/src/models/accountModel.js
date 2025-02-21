@@ -170,7 +170,7 @@ export default {
     // ACTIONS
     setToken: action(async (state, token) => {
         cookies.save('Token', `Token ${token}`, {
-            expires: new Date('05-03-2022'),
+            expires: new Date('05-03-2032'),
         });
         state.token = token;
     }),

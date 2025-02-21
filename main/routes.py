@@ -94,7 +94,6 @@ def url_post() :
         userType = 'Registered'
         userID = user['_id']
 
-
     response, status = URLController.post(url, userID, userType)
     return Response(response = response, status = status)
 
@@ -138,12 +137,12 @@ def url_update(urlID) :
     url, status = URLController.update(urlID, updates, userID)
     return Response(url, status)
 
-# @main.route('/api/get/<short>')
-# def url_link(short) :
-#     url, status = URLController.link(short)
-#     if status != 200 :
-#         return Response(response = json.dumps({'message': 'URL not found'}), status = 404)
-#     return Response(response = json.dumps({'message': 'Redirecting', 'original': url['original']}), status = 200)
+@main.route('/api/get/<short>')
+def url_link_v1(short) :
+    url, status = URLController.link(short)
+    if status != 200 :
+        return Response(response = json.dumps({'message': 'URL not found'}), status = 404)
+    return Response(response = json.dumps({'message': 'Redirecting', 'original': url['original']}), status = 200)
 
 @main.route('/<short>')
 def url_link(short) :

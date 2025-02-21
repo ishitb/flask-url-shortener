@@ -45,7 +45,7 @@ class URL :
             return to_json(newURL), 201
 
         except Exception as e :
-            print(e)
+            print("MONGO ERROR:", e)
             return to_json({'message': 'Internal Server Error'}), 400
 
     def delete(self, id, user) :

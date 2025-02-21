@@ -1,4 +1,4 @@
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 import { Link } from 'react-router-dom';
 
 import '../styles/404.css';
@@ -6,21 +6,19 @@ import '../styles/404.css';
 import notFound from '../assets/notFound.json';
 
 const NotFound404 = () => {
-    const lottieOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: notFound,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-        },
-    };
-
     return (
         <div className='not-found'>
             <Lottie
-                options={lottieOptions}
-                height={500}
-                width={500}
+                animationData={notFound}
+                loop
+                play
+                rendererSettings={{
+                    preserveAspectRatio: 'xMidYMid slice',
+                }}
+                style={{
+                    height: 500,
+                    width: 500,
+                }}
             />
             <h3 className='heading-text foreground-accent center-text'>
                 This URL is not stored in our database.

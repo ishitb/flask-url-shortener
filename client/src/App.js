@@ -47,9 +47,9 @@ function App() {
                     <Route
                         exact
                         path='/'
-                        component={Home}
+                        element={<Home />}
                     />
-                    <Route path='/*' component={Furls} />
+                    <Route path='/*' element={<Furls />} />
                 </Routes>
             </div>
 

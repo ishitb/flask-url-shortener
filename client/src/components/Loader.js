@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useStoreState } from 'easy-peasy';
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 
 import loadingAnim from '../assets/loader.json';
 
@@ -11,15 +11,6 @@ const Loader = () => {
         (store) => store.loaderModel.loader_shown
     );
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: loadingAnim,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-        },
-    };
-
     return createPortal(
         <div
             className={`loading ${
@@ -28,11 +19,17 @@ const Loader = () => {
         >
             <div className='lottie confetti'>
                 <Lottie
-                    options={defaultOptions}
-                    height={400}
+                    animationData={loadingAnim}
+                    loop
+                    play={loader_shown}
+                    rendererSettings={{
+                        preserveAspectRatio: 'xMidYMid slice',
+                    }}
                     speed={2}
-                    width={400}
-                    isStopped={!loader_shown}
+                    style={{
+                        height: 400,
+                        width: 400,
+                    }}
                 />
             </div>
         </div>,
